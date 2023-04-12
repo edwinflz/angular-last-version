@@ -1,0 +1,26 @@
+export const environment = {
+  name: 'prodlocal',
+  production: false,
+  tenant: '83a3c80c-dbfc-460d-842c-bc15254f4a39',
+  clientID: 'cd0f1359-45fe-426b-9702-8b398a52e6bd',
+  signUpSignInPolicy: 'B2C_1_SignInAndSignUp',
+  b2cDomain: 'login-prod.enlace.plus',
+  b2cScopes: ['https://enlaceb2c.onmicrosoft.com/public-site'],
+  webApi: 'http://localhost:5000/api/',
+  passwordReset: 'B2C_1__ResetPassword',
+  authorityPR: 'https://login.microsoftonline.com/tfp/oab2ctest.onmicrosoft.com/B2C_1__ResetPassword',
+  appInsights: {
+    instrumentationKey: '4fd7a431-4061-4da0-a1fd-adc914aa5bb3'
+  },
+  SearchPaginationCount: 10,
+  SearchByPublished: true,
+  stripePk: 'pk_live_kHUWeNjB3D5GSDGuk5ugjZUu',
+  dlocal: '',
+  webBaseUrl: 'http://localhost:4200',
+  iosBaseUrl: 'https://ios.enlace.plus/donate/approved',
+  mobileBaseUrl: 'https://mobile.enlace.plus',
+  convertCurrencyApi: 'https://data.fixer.io/api/',
+  convertCurrencyAccessKey: '8ef907f44ade6d88db28952e73b5c295',
+  blobImgUrl: 'https://enlaceimagesprod.blob.core.windows.net',
+  bibleApiKey: 'dfabd59ff5f493934aefba937ff786e2',
+};

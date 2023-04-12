@@ -1,0 +1,45 @@
+@mixin input-main(
+  $height: 38px,
+  $background: var(--transparent),
+  $color: var(--white),
+  $colorBorder: var(--purple-2),
+  $colorError: var(--orange),
+  $borderRadius: var(--border-radius-5),
+  $font-size: var(--f-12),
+) {
+  height: $height;
+  background-color: $background;
+  color: $color;
+  border: 1px solid $colorBorder;
+  border-radius: $borderRadius;
+  font-size: $font-size;
+  &:focus {
+    box-shadow: none;
+  }
+  &.ng-touched.ng-invalid {
+    @include error-input($colorError);
+  }
+  &.ng-dirty.ng-invalid {
+    @include error-input($colorError);
+  }
+  &.is-invalid {
+    background-image: none;
+    @include error-input($colorError);
+  }
+  & + .input-group-text {
+    background-color: $background;
+    @include input-group-color($colorBorder);
+  }
+}
+
+@mixin input-group-color($color) {
+  border: 1px solid $color;
+  color: $color;
+}
+
+@mixin error-input($color) {
+  border: 1px solid $color;
+  & + .input-group-text {
+    @include input-group-color($color);
+  }
+}
