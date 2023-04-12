@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-enlace-plus": {
+    "enlace": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +22,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-enlace-plus",
+            "outputPath": "wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -45,6 +45,83 @@
             "scripts": []
           },
           "configurations": {
+            "uat": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "index": "src/index/qa/index.html",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uat.ts"
+                }
+              ]
+            },
+            "uatlocal": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "index": "src/index/qa/index.html",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uatlocal.ts"
+                }
+              ]
+            },
+            "qa": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "outputPath": "dist/qa",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "index": "src/index/qa/index.html",
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "qalocal": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "index": "src/index/qa/index.html",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qalocal.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -60,13 +137,53 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
-              "buildOptimizer": false,
+            "dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "outputPath": "dist/dev",
+              "index": "src/index/dev/index.html",
               "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "devlocal": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "index": "src/index/dev/index.html",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.devlocal.ts"
+                }
+              ]
+            },
+            "devstandalone": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "index": "src/index/dev/index.html",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.devstandalone.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -74,11 +191,32 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "browserTarget": "ng-enlace-plus:build:production"
+            "qa": {
+              "browserTarget": "enlace:build:qa"
             },
-            "development": {
-              "browserTarget": "ng-enlace-plus:build:development"
+            "qalocal": {
+              "browserTarget": "enlace:build:qalocal"
+            },
+            "uat": {
+              "browserTarget": "enlace:build:uat"
+            },
+            "uatlocal": {
+              "browserTarget": "enlace:build:uatlocal"
+            },
+            "dev": {
+              "browserTarget": "enlace:build:dev"
+            },
+            "production": {
+              "browserTarget": "enlace:build:production"
+            },
+            "prodlocal": {
+              "browserTarget": "enlace:build:prodlocal"
+            },
+            "devlocal": {
+              "browserTarget": "enlace:build:devlocal"
+            },
+            "devstandalone": {
+              "browserTarget": "enlace:build:devstandalone"
             }
           },
           "defaultConfiguration": "development"
