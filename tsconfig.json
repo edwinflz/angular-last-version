@@ -22,7 +22,72 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@web/*": [
+        "src/app/web/*"
+      ],
+      "@mobile/*": [
+        "src/app/mobile/*"
+      ],
+      "@config/*": [
+        "src/app/config/*"
+      ],
+      "@environment/*": [
+        "src/environments/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@modules/*": [
+        "src/app/shared/modules/*"
+      ],
+      "@components/*": [
+        "src/app/shared/components/*"
+      ],
+      "@directives/*": [
+        "src/app/shared/directives/*"
+      ],
+      "@helpers/*": [
+        "src/app/shared/helpers/*"
+      ],
+      "@pipes/*": [
+        "src/app/shared/pipes/*"
+      ],
+      "@layouts/*": [
+        "src/app/shared/layout/*"
+      ],
+      "@services/*": [
+        "src/app/core/services/*"
+      ],
+      "@utils/*": [
+        "src/app/shared/utils/*"
+      ],
+      "@interceptors/*": [
+        "src/app/core/interceptors/*"
+      ],
+      "@guards/*": [
+        "src/app/core/guards/*"
+      ],
+      "@interfaces/*": [
+        "src/app/core/models/interfaces/*"
+      ],
+      "@classes/*": [
+        "src/app/core/models/classes/*"
+      ],
+      "@enums/*": [
+        "src/app/core/models/enums/*"
+      ],
+      "@constants/*": [
+        "src/app/core/models/constants/*"
+      ]
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
