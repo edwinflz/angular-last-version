@@ -1,1 +1,40 @@
-<p>header works!</p>
+<header class="header-enlace">
+  <a class="navbar-brand" (click)="redirectHome()">
+    <img [src]="imgLogo" alt="Logo Enlace+" />
+  </a>
+  <div class="header-items">
+    <div class="header-link">
+      <span class="text">En vivo</span>
+    </div>
+    <div class="header-link">
+      <span class="text">Programas</span>
+    </div>
+    <div class="header-link">
+      <span class="text">Biblia</span>
+    </div>
+    <div class="header-link">
+      <span class="text">Comunidad</span>
+    </div>
+    <div class="header-link">
+      <span class="text">Librería</span>
+    </div>
+    <div class="header-link">
+      <span class="text">Artículos</span>
+    </div>
+    <div class="header-link">
+      <span class="text">Más</span>
+      <div class="header-icon">
+        <i class="iconlace iconlace-arrow-down"></i>
+      </div>
+    </div>
+    <div class="header-link">
+      <i class="iconlace iconlace-search"></i>
+    </div>
+    <div class="header-link">
+      <div class="header-donate">DONAR</div>
+    </div>
+    <div class="header-link">
+      <img [src]="imgUserDefault" alt="User Profile" />
+    </div>
+  </div>
+</header>

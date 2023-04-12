@@ -1,0 +1,73 @@
+@import "abstracts/mixins";
+
+.header-enlace {
+  @include flex(space-between, center);
+  @include animate(background, 0.5s, ease);
+  height: 60px;
+  padding: 0 50px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  color: var(--white);
+  background: linear-gradient(
+    to bottom,
+    var(--neutro) 0%,
+    rgba(var(--rich-black-rgb2), 0) 100%
+  );
+  &.animation {
+    background: linear-gradient(to bottom, var(--rich-black) 0, var(--space-cadet) 100%);
+  }
+  .header-items {
+    @include flex();
+    height: inherit;
+    gap: 35px;
+    .header-link {
+      @include flex($alignItems: center);
+      @include font($size: var(--f-16), $line-height: 17px, $weight: 300);
+      cursor: pointer;
+      height: inherit;
+      .text {
+        position: relative;
+        &::after {
+          @include animate(all, 0.3s, ease-in-out);
+          content: "";
+          width: 16px;
+          height: 2px;
+          position: absolute;
+          bottom: -4px;
+          left: 0px;
+          background-color: var(--white);
+          opacity: 0;
+        }
+        &:hover::after {
+          opacity: 1;
+          width: 100%;
+        }
+      }
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .header-icon {
+      margin-left: 5px;
+      margin-bottom: 5px;
+      i {
+        font-size: 6px;
+      }
+    }
+    .iconlace-search {
+      font-size: var(--f-18);
+    }
+    .header-donate {
+      padding: 0px 15px;
+      border: 1px solid var(--white);
+      border-radius: 66px;
+      background-color: rgba(var(--white-rgb),0);
+      font-weight: 900;
+      letter-spacing: 0.7px;
+    }
+  }
+}
