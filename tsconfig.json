@@ -63,11 +63,14 @@
       "@layouts/*": [
         "src/app/shared/layout/*"
       ],
+      "@animations/*": [
+        "src/app/shared/animations/*"
+      ],
       "@services/*": [
         "src/app/core/services/*"
       ],
       "@utils/*": [
-        "src/app/shared/utils/*"
+        "src/app/core/utils/*"
       ],
       "@interceptors/*": [
         "src/app/core/interceptors/*"

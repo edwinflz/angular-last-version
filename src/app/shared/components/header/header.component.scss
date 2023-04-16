@@ -1,4 +1,4 @@
-@import "abstracts/mixins";
+@import 'abstracts/mixins';
 
 .header-enlace {
   @include flex(space-between, center);
@@ -19,55 +19,217 @@
   &.animation {
     background: linear-gradient(to bottom, var(--rich-black) 0, var(--space-cadet) 100%);
   }
-  .header-items {
-    @include flex();
+  .navbar-brand {
+    cursor: pointer;
+  }
+}
+
+.header-items {
+  @include flex();
+  height: inherit;
+  gap: 35px;
+  .header-link {
+    @include flex($alignItems: center);
+    @include font($size: var(--f-16), $line-height: 17px, $weight: 300);
+    cursor: pointer;
     height: inherit;
-    gap: 35px;
-    .header-link {
-      @include flex($alignItems: center);
-      @include font($size: var(--f-16), $line-height: 17px, $weight: 300);
-      cursor: pointer;
-      height: inherit;
-      .text {
-        position: relative;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+    &.menu {
+      display: none;
+    }
+  }
+  .header-icon {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    i {
+      font-size: 6px;
+    }
+  }
+  .iconlace-search {
+    font-size: var(--f-18);
+  }
+  .header-donate {
+    padding: 0px 15px;
+    border: 1px solid var(--white);
+    border-radius: 66px;
+    background-color: rgba(var(--white-rgb),0);
+    font-weight: 900;
+    letter-spacing: 0.7px;
+  }
+}
+
+.header-option {
+  position: absolute;
+  left: -8px;
+  top: 54px;
+  width: 170px;
+  box-shadow: 0 0 10px 0 rgba(var(--black-rgb), 0.3);
+  border: 1px solid var(--neutro-2);
+  border-radius: 10px;
+  background-color: var(--neutro-2);
+  visibility: visible;
+  opacity: 1;
+  &:before {
+    content: "";
+    position: absolute;
+    height: 15px;
+    min-width: 15px;
+    transform: rotate(45deg);
+    top: -6px;
+    left: 17px;
+    background-color: var(--neutro-2);
+  }
+}
+
+.header-mobile {
+  @include flex(space-between, center);
+  width: 100%;
+  .header-logo {
+    margin-left: -10px;
+  }
+}
+
+.text {
+  position: relative;
+  &::after {
+    @include animate(all, 0.3s, ease-in-out);
+    content: "";
+    width: 16px;
+    height: 2px;
+    position: absolute;
+    bottom: -4px;
+    left: 0px;
+    background-color: var(--white);
+    opacity: 0;
+  }
+  &:hover::after {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.options {
+  @include flex($alignItems: flex-start, $direction: column);
+  padding: 15px;
+  margin-top: 0px;
+  .option {
+    @include flex(space-between, center);
+    .iconlace {
+      font-size: 20px;
+      margin-right: 10px;
+      &.iconlace-chevron-next {
+        font-size: 12px;
+      }
+    }
+    &-title {
+      @include font($line-height: 40px, $weight: 300, );
+      &.text {
         &::after {
-          @include animate(all, 0.3s, ease-in-out);
-          content: "";
-          width: 16px;
-          height: 2px;
-          position: absolute;
-          bottom: -4px;
-          left: 0px;
-          background-color: var(--white);
-          opacity: 0;
-        }
-        &:hover::after {
-          opacity: 1;
-          width: 100%;
+          bottom: 6px;
         }
       }
+    }
+  }
+}
+
+.country {
+  position: relative;
+  width: 100%;
+  .wrapper-country {
+    @include flex(space-between, center);
+    width: 100%;
+  }
+  .country-list {
+    position: absolute;
+    left: -260px;
+    top: -254px;
+    &:before {
+      content: "";
+      position: absolute;
+      height: 15px;
+      min-width: 15px;
+      z-index: -1;
+      transform: rotate(50deg);
+      top: 267px;
+      right: -7px;
+      background-color: var(--neutro-2);
+    }
+  }
+}
+
+.option-flag {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.option-country {
+  @include flex($alignItems: center);
+}
+
+.option-close {
+  height: 28px;
+}
+
+.link-popup {
+  position: relative;
+}
+
+.border {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--rich-black);
+}
+
+@media screen and (max-width: 767px) {
+  .header-enlace {
+    padding: 0 20px;
+    .navbar-brand {
       img {
-        width: 30px;
-        height: 30px;
+        width: 120px;
       }
     }
-    .header-icon {
-      margin-left: 5px;
-      margin-bottom: 5px;
-      i {
-        font-size: 6px;
+  }
+  .header-items {
+    gap: 12px;
+    .header-link {
+      &.menu {
+        display: flex;
       }
     }
-    .iconlace-search {
-      font-size: var(--f-18);
-    }
-    .header-donate {
-      padding: 0px 15px;
-      border: 1px solid var(--white);
-      border-radius: 66px;
-      background-color: rgba(var(--white-rgb),0);
-      font-weight: 900;
-      letter-spacing: 0.7px;
-    }
+  }
+  .header-option {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+  }
+}
+
+
+.popup {
+  opacity: 0;
+}
+
+.popup.ng-trigger-fadeInOut {
+  transition: opacity 300ms ease-in-out;
+}
+
+.popup.ng-trigger-fadeInOut {
+  opacity: 1;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .header-items {
+    gap: 20px;
   }
 }

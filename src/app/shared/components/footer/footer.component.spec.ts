@@ -8,7 +8,7 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
+      declarations: []
     })
     .compileComponents();
 
@@ -17,7 +17,7 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the FooterComponent', () => {
     expect(component).toBeTruthy();
   });
 });

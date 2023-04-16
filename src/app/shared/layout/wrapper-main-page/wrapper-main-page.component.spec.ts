@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HeaderComponent } from '@components/header/header.component';
+import { FooterComponent } from '@components/footer/footer.component';
 import { WrapperMainPageComponent } from './wrapper-main-page.component';
+
 
 describe('WrapperMainPageComponent', () => {
   let component: WrapperMainPageComponent;
@@ -8,7 +10,7 @@ describe('WrapperMainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WrapperMainPageComponent ]
+      imports: [HeaderComponent, FooterComponent],
     })
     .compileComponents();
 
@@ -17,7 +19,17 @@ describe('WrapperMainPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should contain an app-header element', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('app-header')).toBeTruthy();
+  });
+
+  it('should contain an app-footer element', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('app-footer')).toBeTruthy();
   });
 });

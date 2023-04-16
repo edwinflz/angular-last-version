@@ -3,38 +3,162 @@
     <img [src]="imgLogo" alt="Logo Enlace+" />
   </a>
   <div class="header-items">
-    <div class="header-link">
-      <span class="text">En vivo</span>
-    </div>
-    <div class="header-link">
-      <span class="text">Programas</span>
-    </div>
-    <div class="header-link">
-      <span class="text">Biblia</span>
-    </div>
-    <div class="header-link">
-      <span class="text">Comunidad</span>
-    </div>
-    <div class="header-link">
-      <span class="text">Librería</span>
-    </div>
-    <div class="header-link">
-      <span class="text">Artículos</span>
-    </div>
-    <div class="header-link">
+    <ng-container *ngIf="isDesktopBreakpoint$ | async">
+      <ng-container *ngTemplateOutlet="headerLinksDesktop"></ng-container>
+    </ng-container>
+    <div
+      *ngIf="!(isMobileBreakpoint$ | async)"
+      class="header-link link-popup"
+      [appClickOutside]="popup.openMore"
+      (outsideClick)="togglePopup('openMore')"
+      (click)="togglePopup('openMore')">
       <span class="text">Más</span>
       <div class="header-icon">
-        <i class="iconlace iconlace-arrow-down"></i>
+        <i class="iconlace iconlace-chevron-down"></i>
       </div>
+      <ng-container *ngIf="popup.openMore">
+        <ng-container *ngTemplateOutlet="popupOptionMore"></ng-container>
+      </ng-container>
     </div>
     <div class="header-link">
       <i class="iconlace iconlace-search"></i>
     </div>
-    <div class="header-link">
+    <div class="header-link" *ngIf="!(isMobileBreakpoint$ | async)">
       <div class="header-donate">DONAR</div>
     </div>
-    <div class="header-link">
+    <div class="header-link" *ngIf="!(isMobileBreakpoint$ | async)">
       <img [src]="imgUserDefault" alt="User Profile" />
+    </div>
+    <div
+      class="header-link menu link-popup"
+      (click)="togglePopup('openMenu')">
+      <i class="iconlace iconlace-menu"></i>
+      <ng-container *ngIf="popup.openMenu">
+        <ng-container *ngTemplateOutlet="popupOptionMore; context: { isFixedLayout: true }"></ng-container>
+      </ng-container>
     </div>
   </div>
 </header>
+
+<ng-template #headerLinksDesktop>
+  <div class="header-link">
+    <span class="text">En vivo</span>
+  </div>
+  <div class="header-link">
+    <span class="text">Programas</span>
+  </div>
+  <div class="header-link">
+    <span class="text">Biblia</span>
+  </div>
+  <div class="header-link">
+    <span class="text">Comunidad</span>
+  </div>
+  <div class="header-link">
+    <span class="text">Librería</span>
+  </div>
+  <div class="header-link">
+    <span class="text">Artículos</span>
+  </div>
+</ng-template>
+
+<ng-template #popupOptionMore let-isFixedLayout="isFixedLayout">
+  <div class="header-option popup" (click)="$event.stopPropagation();" [@fadeInOut]="animate">
+    <div class="options">
+      <ng-container *ngIf="isFixedLayout">
+        <ng-container *ngTemplateOutlet="popUpOptionsFixedLayout"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!(isDesktopBreakpoint$ | async)">
+        <ng-container *ngTemplateOutlet="popUpOptionsMobile"></ng-container>
+      </ng-container>
+      <div class="option">
+        <i class="iconlace iconlace-podcast"></i>
+        <span class="option-title text">Podcasts</span>
+      </div>
+      <div class="option">
+        <i class="iconlace iconlace-ministries"></i>
+        <span class="option-title text">Ministerios</span>
+      </div>
+      <div class="option">
+        <i class="iconlace iconlace-people"></i>
+        <span class="option-title text">Personas</span>
+      </div>
+      <div class="border"></div>
+      <ng-container *ngIf="!(isDesktopBreakpoint$ | async)">
+        <div class="option">
+          <i class="iconlace iconlace-donate"></i>
+          <span class="option-title text">Donar</span>
+        </div>
+        <div class="border"></div>
+      </ng-container>
+      <div class="option">
+        <i class="iconlace iconlace-phone"></i>
+        <span class="option-title text">Contacto</span>
+      </div>
+      <div class="option">
+        <span [class]="icon"></span>
+        <span class="option-title text">¿Quiénes somos?</span>
+      </div>
+     </div>
+  </div>
+</ng-template>
+
+<ng-template #popUpOptionsMobile>
+  <div class="option">
+    <i class="iconlace iconlace-play-circle"></i>
+    <span class="option-title text">En vivo</span>
+  </div>
+  <div class="option">
+    <i class="iconlace iconlace-program"></i>
+    <span class="option-title text">Programas</span>
+  </div>
+  <div class="option">
+    <i class="iconlace iconlace-bible"></i>
+    <span class="option-title text">Biblia</span>
+  </div>
+  <div class="option">
+    <i class="iconlace iconlace-pray"></i>
+    <span class="option-title text">Oración</span>
+  </div>
+  <div class="option">
+    <i class="iconlace iconlace-community"></i>
+    <span class="option-title text">Comunidad</span>
+  </div>
+  <div class="option">
+    <i class="iconlace iconlace-bookshop"></i>
+    <span class="option-title text">Librería</span>
+  </div>
+  <div class="option">
+    <i class="iconlace iconlace-article"></i>
+    <span class="option-title text">Articulos</span>
+  </div>
+</ng-template>
+
+<ng-template #popUpOptionsFixedLayout>
+  <div class="option header-mobile">
+    <a class="navbar-brand">
+      <img [src]="imgLogo" alt="Logo Enlace+" class="header-logo" />
+    </a>
+    <img class="option-close" [src]="imgClosePopup" (click)="togglePopup('openMenu'); $event.stopPropagation();">
+  </div>
+  <div class="border"></div>
+  <div class="option user">
+    <img class="option-img" [src]="imgUserDefault" alt="user Image">
+    <span class="option-title">Ingresar</span>
+  </div>
+  <div class="border"></div>
+  <div class="option country">
+    <div class="wrapper-country">
+      <div class="option-country">
+        <img class="option-flag" [src]="countrySelected.imgFlag" [alt]="countrySelected.name" />
+        <span class="option-title">{{ countrySelected.name }}</span>
+      </div>
+      <div class="option-icon">
+        <i class="iconlace iconlace-chevron-next"></i>
+      </div>
+    </div>
+  </div>
+  <div class="border"></div>
+</ng-template>
+
+
+
