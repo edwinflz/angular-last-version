@@ -1,19 +1,10 @@
 export const environment = {
   name: 'qa',
   production: true,
-  tenant: '1a996022-071c-4b82-8d35-bdbba51f7fdf',
-  clientID: '440cdafd-8dfe-4a91-92da-103cc7d84e64',
-  signUpSignInPolicy: 'B2C_1_SignInAndSignUp',
-  b2cDomain: 'login-sandbox.enlace.plus',
-  b2cScopes: ['https://oab2ctest.onmicrosoft.com/public-site'],
   webApi: 'https://qa-api.enlace.plus/api/',
-  passwordReset: 'B2C_1__ResetPassword',
-  authorityPR: 'https://login.microsoftonline.com/tfp/oab2ctest.onmicrosoft.com/B2C_1__ResetPassword',
   appInsights: {
     instrumentationKey: '4fd7a431-4061-4da0-a1fd-adc914aa5bb3'
   },
-  SearchPaginationCount: 10,
-  SearchByPublished: true,
   stripePk: 'pk_test_QoEGTOfMAIkDeQ5oUw8nxnf0',
   dlocal: '9297cb73-5075-4ea6-8b54-3834ef8d729d',
   webBaseUrl: 'https://enlace-enlaceplus-public-qa.azurewebsites.net',

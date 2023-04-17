@@ -8,6 +8,7 @@ import { CountryTimeZone } from '@interfaces/country.interface';
 import { PopupHeader } from '@interfaces/header.interface';
 import { BreakpointDevice } from '@enums/constants.enum';
 import { AppRoutes } from '@enums/routes.enum';
+import { SettingService } from '@services/setting.service';
 import { ResizeService } from '@utils/resize.service';
 import { ClickOutsideDirective } from '@directives/click-outside.directive';
 @Component({
@@ -37,7 +38,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    public resizeService: ResizeService
+    public resizeService: ResizeService,
+    private settingService: SettingService
   ) {}
 
   ngOnInit(): void {
@@ -57,14 +59,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   selectCountryTimezone(): void {
-    this.countrySelected = COUNTRIES_LIST.find(x => x.value === this._region) || COUNTRIES_LIST[0];
-    // this.settingsService.geolocationip().then((location: string) => {
-    //   if (location && location.length > 0) {
-    //     this._region = location;
-    //     const currentCountry = COUNTRIES_LIST.find(x => x.value === this._region);
-    //     this.countrySelected =  !!currentCountry ? currentCountry : COUNTRIES_LIST.find(x => x.value === 'world');
-    //   }
-    // });
+    this.countrySelected = this.selectCountryTimeZone();
+    this.settingService.geoLocationIp().subscribe((location: string) => {
+      if (location && location.length > 0) {
+        this._region = location;
+        this.countrySelected = this.selectCountryTimeZone();
+      }
+    });
   }
 
   redirectHome(): void {
@@ -88,6 +89,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (prop !== key)
         this.popup[key] = false;
     }
+  }
+
+  selectCountryTimeZone(): CountryTimeZone {
+    return COUNTRIES_LIST.find(country => country.value === this._region) || COUNTRIES_LIST[0];
   }
 
   private init(): void {

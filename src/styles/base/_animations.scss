@@ -24,3 +24,16 @@
   }
 }
 
+
+.popup {
+  opacity: 0;
+}
+
+.popup.ng-trigger-fadeInOut {
+  transition: opacity 300ms ease-in-out;
+}
+
+.popup.ng-trigger-fadeInOut {
+  opacity: 1;
+}
+

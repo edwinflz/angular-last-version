@@ -39,7 +39,7 @@
       "@config/*": [
         "src/app/config/*"
       ],
-      "@environment/*": [
+      "@environments/*": [
         "src/environments/*"
       ],
       "@shared/*": [

@@ -1,19 +1,10 @@
 export const environment = {
   name: 'devlocal',
   production: false,
-  tenant: 'oab2ctest.onmicrosoft.com',
-  clientID: '440cdafd-8dfe-4a91-92da-103cc7d84e64',
-  signUpSignInPolicy: 'B2C_1A_signup_signin',
-  b2cDomain: 'oab2ctest',
-  b2cScopes: ['https://oab2ctest.onmicrosoft.com/public-site'],
   webApi: 'https://enlace-api-dev.azurewebsites.net/api/',
-  passwordReset: 'B2C_1_reset',
-  authorityPR: 'https://login.microsoftonline.com/tfp/oab2ctest.onmicrosoft.com/B2C_1_reset',
   appInsights: {
     instrumentationKey: 'e3e53ea0-32dc-4081-8ab5-c4aa8206a301'
   },
-  SearchPaginationCount: 12,
-  SearchByPublished: true,
   stripePk: 'pk_test_QoEGTOfMAIkDeQ5oUw8nxnf0',
   dlocal: '9297cb73-5075-4ea6-8b54-3834ef8d729d',
   webBaseUrl: 'http://localhost:4200',
