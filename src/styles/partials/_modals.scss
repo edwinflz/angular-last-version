@@ -50,6 +50,14 @@
   }
 }
 
+.modal-backdrop {
+  --bs-backdrop-opacity: 0.2;
+}
+
+.light-black-backdrop {
+  background-color: var(--neutro);
+}
+
 .modal {
   @include scroll(
     $size: 8px,

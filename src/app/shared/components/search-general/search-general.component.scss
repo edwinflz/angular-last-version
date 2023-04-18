@@ -1,0 +1,83 @@
+@import 'abstracts/mixins';
+
+.content {
+  @include flex(space-between, center);
+  gap: 15px;
+}
+
+.category-content {
+  width: 208px;
+}
+
+.select-filter {
+  position: relative;
+  padding: 10px 20px 10px 10px;
+  background-color: var(--space-cadet);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  &.not-active {
+    border-radius: 12px;
+  }
+  .select-default {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    .title {
+      flex-grow: 1;
+    }
+  }
+  .select-option {
+    position: absolute;
+    @include flex($direction: column);
+    top: 30px;
+    left: 0px;
+    width: 100%;
+    background-color: var(--space-cadet);
+    z-index: 101;
+    padding: 10px 20px 5px 14px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    .select-item {
+      @include flex($alignItems: center);
+      margin-bottom: 12px;
+      cursor: pointer;
+      i {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.search-content {
+  width: 62%;
+}
+
+.input-section {
+  position: relative;
+  .search-input {
+    width: 100%;
+    border-radius: 7px;
+    background-color: var(--white);
+    padding: 6px 12px;
+    font-size: 14px;
+    color: var(--black);
+    height: 37px;
+
+  }
+  .search {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: var(--space-cadet);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .content {
+    flex-direction: column;
+  }
+  .category-content, .search-content {
+     width: 100%;
+  }
+}

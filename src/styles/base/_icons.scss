@@ -56,7 +56,9 @@
 .iconlace-menu:before {
   content: "\e935";
 }
-
+.iconlace-cross:before {
+  content: "\e928";
+}
 
 // Contents - Pages
 .iconlace-podcast:before {
@@ -73,6 +75,9 @@
 }
 .iconlace-program:before {
   content: "\e967";
+}
+.iconlace-video:before {
+  content: "\e927";
 }
 .iconlace-bible:before {
   content: "\e957";
@@ -92,8 +97,21 @@
 .iconlace-donate:before {
   content: "\e906";
 }
+.iconlace-home:before {
+  content: "\e907";
+}
+.iconlace-person:before {
+  content: "\e9bf";
+}
 
 // Icons
 .iconlace-phone:before {
   content: "\e93b";
 }
+.iconlace-check:before {
+  content: "\e987";
+}
+.iconlace-user:before {
+  content: "\e93d";
+}
+

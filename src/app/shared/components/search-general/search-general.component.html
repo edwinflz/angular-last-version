@@ -1,0 +1,32 @@
+<div class="content">
+  <div class="category-content">
+    <div class="select-filter" [class.not-active]="!isOpenOption">
+      <div class="select-default" (click)="toggleOpenOption()">
+        <span class="title">{{ typeSelected.label }}</span>
+        <i class="iconlace" [ngClass]="{'iconlace-check': isOpenOption, 'iconlace-chevron-down': !isOpenOption}"></i>
+      </div>
+      <div class="select-option" *ngIf="isOpenOption">
+        <ng-container *ngFor="let item of listFilters">
+          <div class="select-item" *ngIf="(typeSelected.type !== item.type && item.visible)"
+            (click)="changeFilter(item)">
+            <i class="iconlace {{item.icon}}"></i>
+            <span>{{item.label}}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="search-content">
+    <div class="input-section">
+      <input
+        #searchInput
+        [(ngModel)]="searchText"
+        (keydown.enter)="search();"
+        autocomplete="off" class="form-control search-input"
+        type="text" maxlength="50"
+         id="searchTextInput" placeholder="Busca programas, pastores o temas..."/>
+      <i class="search iconlace iconlace-chevron-next" *ngIf="!searchText"></i>
+      <i class="search iconlace iconlace-cross cursor-pointer" *ngIf="searchText" (click)="searchText = '';"></i>
+    </div>
+  </div>
+</div>

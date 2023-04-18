@@ -20,14 +20,29 @@
         <ng-container *ngTemplateOutlet="popupOptionMore"></ng-container>
       </ng-container>
     </div>
-    <div class="header-link">
+    <div
+      class="header-link link-popup"
+      [appClickOutside]="popup.openSearch"
+      (outsideClick)="togglePopup('openSearch')"
+      (click)="togglePopup('openSearch')">
       <i class="iconlace iconlace-search"></i>
+      <ng-container *ngIf="popup.openSearch">
+        <ng-container *ngTemplateOutlet="popUpSearch"></ng-container>
+      </ng-container>
     </div>
     <div class="header-link" *ngIf="!(isMobileBreakpoint$ | async)">
       <div class="header-donate">DONAR</div>
     </div>
-    <div class="header-link" *ngIf="!(isMobileBreakpoint$ | async)">
-      <img [src]="imgUserDefault" alt="User Profile" />
+    <div
+      class="header-link link-popup"
+      *ngIf="!(isMobileBreakpoint$ | async)"
+      [appClickOutside]="popup.openLogin"
+      (outsideClick)="togglePopup('openLogin')"
+      (click)="showLoginOptions()">
+      <img [src]="profileImage" alt="User Profile" />
+      <ng-container *ngIf="popup.openLogin">
+        <ng-container *ngTemplateOutlet="popUpOptionUserLoggedIn"></ng-container>
+      </ng-container>
     </div>
     <div
       class="header-link menu link-popup"
@@ -82,13 +97,13 @@
         <i class="iconlace iconlace-people"></i>
         <span class="option-title text">Personas</span>
       </div>
-      <div class="border"></div>
+      <div class="border-separate"></div>
       <ng-container *ngIf="!(isDesktopBreakpoint$ | async)">
         <div class="option">
           <i class="iconlace iconlace-donate"></i>
           <span class="option-title text">Donar</span>
         </div>
-        <div class="border"></div>
+        <div class="border-separate"></div>
       </ng-container>
       <div class="option">
         <i class="iconlace iconlace-phone"></i>
@@ -101,6 +116,11 @@
      </div>
   </div>
 </ng-template>
+
+<ng-template #popUpOptionUserLoggedIn>
+
+</ng-template>
+
 
 <ng-template #popUpOptionsMobile>
   <div class="option">
@@ -140,12 +160,12 @@
     </a>
     <img class="option-close" [src]="imgClosePopup" (click)="togglePopup('openMenu'); $event.stopPropagation();">
   </div>
-  <div class="border"></div>
+  <div class="border-separate"></div>
   <div class="option user">
     <img class="option-img" [src]="imgUserDefault" alt="user Image">
     <span class="option-title">Ingresar</span>
   </div>
-  <div class="border"></div>
+  <div class="border-separate"></div>
   <div class="option country">
     <div class="wrapper-country">
       <div class="option-country">
@@ -157,7 +177,20 @@
       </div>
     </div>
   </div>
-  <div class="border"></div>
+  <div class="border-separate"></div>
+</ng-template>
+
+
+<ng-template #popUpSearch>
+  <div class="popup search-general" (click)="$event.stopPropagation();" [@fadeInOut]="animate">
+    <div class="option header-mobile mb-4" *ngIf="isMobileBreakpoint$ | async">
+      <a class="navbar-brand">
+        <img [src]="imgLogo" alt="Logo Enlace+" class="header-logo" />
+      </a>
+      <img class="option-close" [src]="imgClosePopup" (click)="togglePopup('openSearch'); $event.stopPropagation();">
+    </div>
+    <app-search-general></app-search-general>
+  </div>
 </ng-template>
 
 

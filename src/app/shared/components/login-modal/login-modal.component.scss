@@ -1,0 +1,39 @@
+@import "abstracts/mixins";
+@import "partials/buttons";
+
+.content {
+  @include flex(center, center, column);
+  gap: 15px;
+  &-icon {
+    i {
+      font-size: 47px;
+    }
+  }
+  &-title {
+    @include font($size: var(--f-35), $line-height: 42px, $weight: 900);
+  }
+  &-subtitle {
+    @include font($size: var(--f-20), $line-height: 24px, $weight: 400);
+    text-align: center;
+  }
+  &-buttons {
+    .btn-primary {
+      @include btn-main($width: 172px);
+      @include flex(center, center);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+  }
+  &-register-now {
+    @include flex(center, center);
+    .sign-up {
+      color: var(--white);
+    }
+    .action-text {
+      @include font(var(--lato-font), var(--f-12), var(--f-14), var(--celeste), 400);
+      margin-left: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
