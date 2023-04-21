@@ -1,4 +1,4 @@
-@import 'abstracts/mixins';
+@import "abstracts/mixins";
 
 .header-enlace {
   @include flex(space-between, center);
@@ -13,11 +13,15 @@
   color: var(--white);
   background: linear-gradient(
     to bottom,
-    var(--neutro) 0%,
+    var(--rich-black) 0%,
     rgba(var(--rich-black-rgb2), 0) 100%
   );
   &.animation {
-    background: linear-gradient(to bottom, var(--rich-black) 0, var(--space-cadet) 100%);
+    background: linear-gradient(
+      to bottom,
+      var(--rich-black) 0,
+      var(--space-cadet) 100%
+    );
   }
   .navbar-brand {
     cursor: pointer;
@@ -55,7 +59,7 @@
     padding: 0px 15px;
     border: 1px solid var(--white);
     border-radius: 66px;
-    background-color: rgba(var(--white-rgb),0);
+    background-color: rgba(var(--white-rgb), 0);
     font-weight: 900;
     letter-spacing: 0.7px;
   }
@@ -125,7 +129,7 @@
       }
     }
     &-title {
-      @include font($line-height: 40px, $weight: 300, );
+      @include font($line-height: 40px, $weight: 300);
       &.text {
         &::after {
           bottom: 6px;

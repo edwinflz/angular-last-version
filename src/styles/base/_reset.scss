@@ -1,5 +1,3 @@
-@use "../abstracts/mixins";
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,8 +17,11 @@ body {
   height: 100vh;
   font-family: var(--lato-font);
   font-size: var(--f-14);
-  background-color: var(--neutro);
-  @include background-image("/assets/images/bg/bg-body.jpg");
+  background-color: var(--dark-gunmetal);
+  background-image: url(/assets/images/bg/bg-body.jpg);
+  background-attachment: fixed;
+  background-position: top;
+  background-size: 100%;
 }
 
 label {

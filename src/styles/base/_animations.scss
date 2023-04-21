@@ -24,6 +24,32 @@
   }
 }
 
+/* Animación: bounceInLeft
+ - Al inicio (0%), el elemento está completamente oculto y desplazado hacia la izquierda (-100px).
+ - En el punto intermedio de la animación (60%), el elemento se muestra con una opacidad del 100% y se desplaza hacia la derecha (30px).
+ - En el punto 80%, el elemento se desplaza ligeramente hacia la izquierda (-10px) para simular un efecto de rebote.
+ - Finalmente, en el punto 100%, el elemento regresa a su posición original (0px).
+*/
+@keyframes bounceInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(30px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.bounceInLeft {
+  animation: bounceInLeft 1s ease;
+}
 
 .popup {
   opacity: 0;

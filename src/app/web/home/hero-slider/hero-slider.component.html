@@ -1,0 +1,28 @@
+<div class="hero-swiper">
+  <owl-carousel-o  [options]="customOptions" #owlCar>
+    <ng-container *ngFor="let hero of (heros$ | async)">
+      <ng-template carouselSlide [id]="hero.id">
+        <ng-container *ngTemplateOutlet="heroContent; context: { hero: hero }"></ng-container>
+        <img class="hero-img" [src]="hero?.backgroundImage?.url || imageDefault" [alt]="hero.title" [title]="hero.title" priority>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+  <div class="swiper-button-container button-right" (click)="owlCar.next()">
+    <i class="iconlace iconlace-chevron-next"></i>
+  </div>
+  <div class="swiper-button-container button-left" (click)="owlCar.prev()">
+    <i class="iconlace iconlace-chevron-previous"></i>
+  </div>
+</div>
+
+<ng-template #heroContent let-hero="hero">
+  <div class="content-hero bounceInLeft {{ hero?.heroType?.name }}">
+    <h1 class="hero-title">{{ hero?.title }}</h1>
+    <h2 class="hero-subtitle" *ngIf="hero?.subtitle">{{ hero.subtitle }}</h2>
+    <p class="hero-description" *ngIf="hero?.shortDescription">{{ hero.shortDescription }}</p>
+    <button type="button" class="btn btn-primary hero-button">
+      {{ hero.buttonTitle }}
+      <i class="iconlace iconlace-play"></i>
+    </button>
+  </div>
+</ng-template>
