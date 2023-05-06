@@ -1,7 +1,7 @@
 export const environment = {
   name: 'devlocal',
   production: false,
-  webApi: 'http://localhost:5000/api/',
+  webApi: 'http://localhost:5000/api',
   appInsights: {
     instrumentationKey: 'e3e53ea0-32dc-4081-8ab5-c4aa8206a301'
   },

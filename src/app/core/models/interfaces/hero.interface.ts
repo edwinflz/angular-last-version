@@ -8,10 +8,11 @@ export interface HeroHome {
   imageId: string;
   backgroundImageId: string;
   contentId: string;
+  content: Content;
   url: string;
-  backgroundImage: Image;
+  backgroundImage: ImageContent;
   heroType: HeroType;
-  image: Image;
+  image: ImageContent;
   buttonTitle: string;
 }
 
@@ -22,7 +23,7 @@ export interface HeroType {
 }
 
 
-export interface Image {
+export interface ImageContent {
   id: number;
   imageType: ImageType;
   url: string;
@@ -31,4 +32,16 @@ export interface Image {
 export interface ImageType {
   id: number;
   name: string;
+}
+
+export interface Content {
+  id: string;
+  title: string;
+  description: string;
+  type: string;
+  ministryId: string;
+  publishedDate: Date;
+  availableFromDate: Date;
+  availableToDate: Date;
+  createdDate?: string;
 }

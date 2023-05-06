@@ -1,7 +1,7 @@
 export const environment = {
   name: 'uat',
   production: false,
-  webApi: 'http://localhost:5000/api/',
+  webApi: 'http://localhost:5000/api',
   appInsights: {
     instrumentationKey: '5d9e65aa-e05a-4d63-ba93-16376f449217'
   },

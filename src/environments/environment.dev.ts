@@ -1,7 +1,7 @@
 export const environment = {
   name: 'dev',
   production: false,
-  webApi: 'https://dev-api.enlace.plus/api/',
+  webApi: 'https://dev-api.enlace.plus/api',
   appInsights: {
     instrumentationKey: 'e3e53ea0-32dc-4081-8ab5-c4aa8206a301'
   },
