@@ -48,6 +48,9 @@
   animation: bounceInLeft 1s ease;
 }
 
+/* Animación: fadeInOut
+  - Animación para los popups del header y estos tengan un efecto suavizado al aparecer/desaparecer en pantalla
+*/
 .popup {
   opacity: 0;
 }
@@ -60,3 +63,31 @@
   opacity: 1;
 }
 
+/* Animación: cubeGridScaleDelay
+  - Esta animación se usa para el loading General.
+  - Animación de escalado y desvanecimiento de cubos en una cuadrícula que se repite continuamente con una duración de 1.3 segundos y un efecto ease-in-out.
+*/
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+}
+
+.cubeGridScaleDelay {
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}

@@ -14,7 +14,7 @@ export class CatalogService {
   constructor(private http: HttpClient) {}
 
   getListHomeCatalogs(request: CatalogViewModelPagingRequest): Observable<CatalogViewModelPaging> {
-    return this.cacheHomeCatalogs && this.cacheHomeCatalogs.catalogs.length > 0
+    return this.cacheHomeCatalogs?.catalogs?.length > 0
       ? of(this.cacheHomeCatalogs)
       : this.http
           .post<CatalogViewModelPaging>(

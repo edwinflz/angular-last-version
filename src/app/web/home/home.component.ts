@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeroSliderComponent } from '@web/home/hero-slider/hero-slider.component';
-import { CatalogService } from '@services/catalog.service';
 import { CatalogViewModelPagingRequest } from '@interfaces/catalog.interface';
+import { CatalogService } from '@services/catalog.service';
+import { LoadingService } from '@utils/loading.service';
+import { HeroSliderComponent } from '@web/home/hero-slider/hero-slider.component';
 
 @Component({
   selector: 'app-home',
@@ -23,11 +24,13 @@ export class HomeComponent implements OnInit {
     sectionName: 'home',
     contentType: 'all'
   };
+  loadingService = inject(LoadingService);
 
   constructor(private catalogService: CatalogService) {}
 
   ngOnInit(): void {
-    this.catalogService.getListHomeCatalogs(this.pagingRequest).subscribe(result => console.log(result));
+    this.loadingService.show();
+    this.catalogService.getListHomeCatalogs(this.pagingRequest).subscribe(result => this.loadingService.hide());
   }
 
 }

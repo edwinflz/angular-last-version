@@ -1,7 +1,9 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +12,7 @@ import { HeroService } from '@services/hero.service';
 import { Observable } from 'rxjs';
 
 import { SwiperCustomDirective } from '@directives/swiper-custom.directive';
-import { A11y, Mousewheel, Navigation, SwiperOptions } from 'swiper';
+import Swiper, { A11y, Mousewheel, Navigation, SwiperOptions } from 'swiper';
 @Component({
   selector: 'app-hero-slider',
   standalone: true,
@@ -20,9 +22,9 @@ import { A11y, Mousewheel, Navigation, SwiperOptions } from 'swiper';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HeroSliderComponent {
+export class HeroSliderComponent implements AfterViewInit {
 
-  @ViewChild('heroSwiper') heroSwiper: any;
+  @ViewChild('heroSwiper') heroSwiper!: ElementRef;
 
   imageDefault: string = 'assets/images/bg/bg-slider-home.png';
   heros$: Observable<HeroHome[]> = this.heroService.getListHomeHero();
@@ -34,19 +36,20 @@ export class HeroSliderComponent {
     centeredSlides: true,
   };
 
+  private _swiper!: Swiper;
+
   constructor(private heroService: HeroService) {}
 
+  ngAfterViewInit(): void {
+    this._swiper = this.heroSwiper.nativeElement.swiper;
+  }
+
   next(): void {
-    const swiper = this.heroSwiper.nativeElement.swiper;
-    swiper.isEnd ? swiper.slideTo(0) : swiper.slideNext();
+    this._swiper.isEnd ? this._swiper.slideTo(0) : this._swiper.slideNext();
   }
 
   previous(): void {
-    const swiper = this.heroSwiper.nativeElement.swiper;
-    swiper.isBeginning ? swiper.slideTo(swiper.slides.length - 1) : swiper.slidePrev();
+    this._swiper.isBeginning ? this._swiper.slideTo(this._swiper.slides.length - 1) : this._swiper.slidePrev();
   }
 
-  testInstaceSwiper(): void {
-    this.heroSwiper.nativeElement.swiper.slideNext();
-  }
 }
