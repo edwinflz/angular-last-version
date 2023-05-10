@@ -18,7 +18,7 @@ export class HeroService {
     return this.cache.length > 0
       ? of(this.cache)
       : this.http
-          .get<HeroHome[]>(`${this.API_V2}//list`)
+          .get<HeroHome[]>(`${this.API_V2}/list`)
           .pipe(tap((response: HeroHome[]) => (this.cache = response)));
   }
 

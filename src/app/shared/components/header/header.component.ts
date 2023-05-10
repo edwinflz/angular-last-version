@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -47,8 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   countrySelected!: CountryTimeZone;
   animate = false;
   timeoutId: any | undefined;
+  headerAnimation = false;
 
   private _region: string = 'world';
+  private _scrollTopAnimation: number = 100;
 
   constructor(
     private router: Router,
@@ -60,6 +62,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.init();
+  }
+
+  @HostListener('window:scroll', ['$event']) onWindowScroll(
+    event: Event
+  ): void {
+    const offset =
+      window['pageYOffset'] ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    this.headerAnimation = offset >= this._scrollTopAnimation;
   }
 
   get isDesktopBreakpoint$(): Observable<boolean> {
@@ -92,6 +105,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  selectCountryTimeZone(): CountryTimeZone {
+    return COUNTRIES_LIST.find(country => country.value === this._region) || COUNTRIES_LIST[0];
+  }
+
   redirectHome(): void {
     this.router.navigate([AppRoutes.HOME]);
   }
@@ -115,10 +132,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectCountryTimeZone(): CountryTimeZone {
-    return COUNTRIES_LIST.find(country => country.value === this._region) || COUNTRIES_LIST[0];
-  }
-
   showLoginOptions(): void {
     if (this.isUserLoggedIn)
       this.togglePopup('openLogin');
@@ -131,8 +144,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.timeoutId) {
+    if (this.timeoutId)
       clearTimeout(this.timeoutId);
-    }
   }
 }

@@ -2,6 +2,7 @@
 
 body {
   color: var(--white);
+  overflow-x: hidden;
   @include scroll(
     $size: 8px,
     $borderRadiusThumb: var(--border-radius-6)

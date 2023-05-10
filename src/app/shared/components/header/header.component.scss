@@ -2,7 +2,6 @@
 
 .header-enlace {
   @include flex(space-between, center);
-  @include animate(background, 0.5s, ease);
   height: 60px;
   padding: 0 50px;
   position: fixed;
@@ -22,6 +21,7 @@
       var(--rich-black) 0,
       var(--space-cadet) 100%
     );
+    @include animate(background, 0.5s, ease);
   }
   .navbar-brand {
     cursor: pointer;

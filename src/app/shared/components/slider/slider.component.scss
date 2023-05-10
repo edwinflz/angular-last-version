@@ -1,0 +1,48 @@
+@import "abstracts/mixins";
+
+swiper-container {
+  overflow: visible;
+}
+
+.slider-header {
+  @include flex(space-between, center);
+  width: 100%;
+  margin-bottom: 16px;
+  .slider-title {
+    font-size: var(--f-20);
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
+      .see-all {
+        opacity: 1;
+      }
+    }
+  }
+  .see-all {
+    @include animate(opacity, 0.25s, ease-in-out);
+    padding-left: 16px;
+    text-transform: none;
+    opacity: 0;
+    font-size: var(--f-14);
+    .iconlace-chevron-next {
+      font-size: var(--f-10);
+      margin-left: 5px;
+    }
+  }
+}
+
+
+swiper-slide {
+  width: 240px;
+  cursor: pointer;
+  z-index: 1;
+  &.audiobook {
+    width: 150px;
+  }
+  &.ebook {
+    width: 150px;
+  }
+  &:hover {
+    z-index: 2;
+  }
+}

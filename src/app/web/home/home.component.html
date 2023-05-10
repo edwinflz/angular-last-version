@@ -1,3 +1,7 @@
 <app-hero-slider></app-hero-slider>
 
-Aqui vendran los catalogos!!
+<div class="container-fluid">
+  <ng-container *ngIf="homeCatalogs">
+    <app-slider *ngFor="let catalog of homeCatalogs.catalogs" [catalog]="catalog"></app-slider>
+  </ng-container>
+</div>
