@@ -1,0 +1,53 @@
+<div
+  class="cont-base"
+  [appClickOutside]="showOptions"
+  (outsideClick)="closeOptions()"
+  (click)="toggleShowOptions()">
+  <div class="select-wrapper">
+    <div class="select-header">
+      <div class="select-template">
+        <ng-container
+          [ngTemplateOutlet]="selectedTemplateRef || defaultSelected"
+          [ngTemplateOutletContext]="{ $implicit: picked }">
+        </ng-container>
+      </div>
+      <i class="iconlace iconlace-arrow-down-bold"></i>
+    </div>
+    <div class="select-body" *ngIf="showOptions" [appCheckElementIsVisible]="'select-body-top'">
+      <div class="select-search" *ngIf="showSearch" (click)="$event.stopPropagation();">
+        <app-dropdown-search-plus (findElement)="search($event)"></app-dropdown-search-plus>
+      </div>
+      <div class="select-option">
+        <ng-container *ngIf="optionTemplateRef; else selectItem">
+          <ng-container
+            [ngTemplateOutlet]="optionTemplateRef"
+            [ngTemplateOutletContext]="{ $implicit: options}">
+          </ng-container>
+        </ng-container>
+        <ng-template #selectItem>
+          <div
+            class="select-item"
+            *ngFor="let option of options | filterDropdownPlus: searchText; index as i"
+            [ngClass]="{'active': option?.value === picked.value}"
+            (click)="selectOption(option); $event.stopPropagation();">
+            <ng-container
+              [ngTemplateOutlet]="defaultOption"
+              [ngTemplateOutletContext]="{ $implicit: option, index: i }">
+            </ng-container>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #defaultSelected>
+  <app-dropdown-header-plus [label]="label" [picked]="picked" [hasBrackground]="hasBackground"></app-dropdown-header-plus>
+</ng-template>
+
+<ng-template #defaultOption let-option>
+  <span>{{ option?.name || option }}</span>
+</ng-template>
+
+<div class="overlay" [ngClass]="{'active': showOptions}"></div>

@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   countrySelected!: CountryTimeZone;
   animate = false;
-  timeoutId: any | undefined;
+  timeoutId!: any;
   headerAnimation = false;
 
   private _region: string = 'world';

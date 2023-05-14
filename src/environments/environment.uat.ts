@@ -2,6 +2,7 @@ export const environment = {
   name: 'uat',
   production: true,
   webApi: 'https://enlace-api-uat.azurewebsites.net/api',
+  soaApiBaseUrl: 'https://soa-dev.enlace.plus/api/',
   appInsights: {
     instrumentationKey: '5d9e65aa-e05a-4d63-ba93-16376f449217'
   },

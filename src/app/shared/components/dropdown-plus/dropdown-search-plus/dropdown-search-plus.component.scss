@@ -1,0 +1,20 @@
+@import 'partials/inputs';
+
+.form-control {
+  @include input-main(
+    $background: var(--transparent),
+    $color: var(--white),
+    $borderRadius: var(--border-radius-25),
+  );
+}
+
+.iconlace-search {
+  color: var(--white);
+}
+
+.input-group-text {
+  cursor: default;
+  border-radius: var(--border-radius-25);
+  color: var(--purple-2);
+  border: 1px solid var(--purple-2);
+}

@@ -1,0 +1,13 @@
+.select-title {
+  text-align: start;
+  color: var(--spanish-gray-2);
+  font-size: var(--f-12);
+  font-family: var(--lato-font);
+  flex-grow: 1;
+  &.picked {
+    color: var(--white);
+  }
+  &.color-white {
+    color: var(--white);
+  }
+}

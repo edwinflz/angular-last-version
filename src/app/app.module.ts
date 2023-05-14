@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import {register} from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { INTERCEPTOR_PROVIDERS } from '@core/interceptors';
 // Swiper
 register();
 
@@ -23,7 +23,7 @@ register();
     NgxWebstorageModule.forRoot(),
     LoadingComponent
   ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,66 @@
+@import "abstracts/mixins";
+
+.breadcrumb-container {
+  @include flex();
+}
+
+.level {
+  &-step{
+    @include flex(space-between, center);
+    &.clicked {
+      cursor: pointer;
+    }
+    &.blocked {
+      .level-status {
+        .circle-border {
+          color: var(--purple-navy);
+        }
+        .check {
+          color:  var(--space-cadet);
+        }
+      }
+      .level-text {
+        color: var(--purple-navy);
+      }
+      .level-separator {
+        i {
+          color: var(--purple-navy);
+        }
+      }
+    }
+  }
+  &-status {
+    &.cheked {
+      position: relative;
+      .check {
+        position: absolute;
+        left: 3px;
+        top: 6px;
+        font-size: 8px;
+        font-weight: 300;
+      }
+    }
+    .circle-border {
+      color: var(--purple);
+    }
+    i {
+      font-weight: bold;
+    }
+  }
+  &-text {
+    padding-bottom: 2px;
+    margin: 0 5px;
+  }
+  &-separator {
+    margin: 0 8px;
+    i {
+      color: var(--purple);
+      font-size: var(--f-12);
+      font-weight: bold;
+    }
+  }
+}
+
+.cursor {
+  cursor: pointer;
+}

@@ -1,0 +1,31 @@
+@import "abstracts/mixins";
+@import 'partials/inputs';
+
+.form-control {
+  @include input-main();
+}
+
+.dropdowns-birthday {
+  @include flex(stretch, stretch);
+  width: 100%;
+  gap: 10px;
+  app-dropdown-plus {
+    flex: 1;
+  }
+}
+
+.term-condicions {
+  width: 100%;
+  @include flex(center, center);
+  .ref-clickable {
+    margin-left: 5px;
+    color: var(--celeste);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.avatar-container {
+  @include flex(center, center);
+  width: 100%
+}

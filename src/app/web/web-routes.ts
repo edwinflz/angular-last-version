@@ -12,11 +12,6 @@ export const WEB_ROUTES: Routes = [
         loadComponent: () =>
           import('@web/home/home.component').then((m) => m.HomeComponent),
       },
-      // {
-      //   path: AppRoutes.AUTH,
-      //   loadComponent: () =>
-      //     import('@web/auth-web/auth-web.component').then((m) => m.AuthWebComponent),
-      // }
     ]
   }
 ];

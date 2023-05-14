@@ -9,6 +9,11 @@ const routes: Routes = [
       import('@web/web-routes').then((m) => m.WEB_ROUTES),
   },
   {
+    path: AppRoutes.AUTH,
+    loadComponent: () =>
+      import('@web/auth/auth.component').then((m) => m.AuthComponent),
+  },
+  {
     path: '**',
     redirectTo: AppRoutes.HOME
   }

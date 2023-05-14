@@ -1,0 +1,26 @@
+.dropdown {
+  &-table {
+    width: 100%;
+    background: var(--anti-flash-white);
+  }
+  &-custom-item {
+    height: 48px;
+    width: 75px;
+    vertical-align: middle;
+    font-weight: 400;
+    cursor: pointer;
+    &.current-item {
+      background: var(--purple-2);
+    }
+    span {
+      padding: 5px 10px;
+    }
+    &:hover {
+      span {
+        background: var(--ucla-blue);
+        border-radius: var(--border-radius-25);
+        color: var(--white);
+      }
+    }
+  }
+}

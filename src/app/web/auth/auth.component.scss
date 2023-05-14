@@ -1,0 +1,237 @@
+@import "abstracts/mixins";
+
+.auth {
+  &-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+  }
+  &-form {
+    display: grid;
+    grid-column: 2/3;
+  }
+  &-body {
+    @include flex($alignItems: center, $direction: column);
+  }
+  &-option {
+    width: 100%;
+    @include flex(space-between, center);
+  }
+  &-cancel {
+    width: 100%;
+    padding-top: 20px;
+    padding-right: 20px;
+    color: var(--white);
+    text-align: end;
+    cursor: pointer;
+    span {
+      font-size: var(--f-10);
+    }
+    i {
+      font-size: var(--f-10);
+    }
+    .iconlace-close {
+      &.me-2 {
+        display: none;
+      }
+      &.ms-2 {
+        display: inline-block;
+      }
+    }
+  }
+  &-back {
+    width: 100%;
+    padding-bottom: 20px;
+    text-align: start;
+    cursor: pointer;
+    display: none;
+    color: var(--white);
+    .btn-back {
+      padding: 10px;
+      padding-left: 0;
+    }
+  }
+  &-breadcrumb {
+    width: 90%;
+    display: block;
+    margin-top: 50px;
+    margin-right: 70px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--purple);
+  }
+  &-logo-container {
+    display: none;
+  }
+  &-content {
+    @include flex($direction: column);
+    margin-top: 56px;
+    text-align: center;
+    width: 420px;
+  }
+}
+
+.content {
+  &-title {
+    @include font(
+      $font-family: var(--lato-font),
+      $size: var(--f-30),
+      $line-height: var(--f-36),
+      $weight: 900
+    );
+    margin-top: 24px;
+  }
+  &-subtitle {
+    @include font(
+      $font-family: var(--lato-font),
+      $line-height: var(--f-18),
+      $size: var(--f-16),
+      $weight: 400
+    );
+    text-align: center;
+  }
+  &-form {
+    padding-left: 25px;
+    padding-right: 20px;
+    margin-top: 20px;
+  }
+  &-text-small {
+    @include font($size: var(--f-12));
+    width: 80%;
+    &-forgot {
+      @include font($size: var(--f-16),$line-height: var(--f-18), $weight: 400);
+      margin: 25px auto;
+    }
+    &-migration {
+      @include font($size: var(--f-16),$line-height: var(--f-19), $weight: 400);
+      margin: 25px auto;
+    }
+  }
+  &-call-to-action {
+    @include flex(center, center);
+    margin-top: 15px;
+    font-size: var(--f-12);
+    &.column {
+      @include flex(center, center, column);
+    }
+    .register-now, .migrate-now {
+      @include flex(center, center);
+    }
+    .sign-up {
+      color: var(--white);
+    }
+    .action-text {
+      margin-left: 10px;
+      @include font(var(--lato-font), var(--f-12), var(--f-14), var(--celeste), 400);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  &-helper-links {
+    display: inline-block;
+  }
+  &-link-support {
+    @include font($size: var(--f-12), $weight: 500, $color: var(--neutro-4));
+    text-decoration: underline;
+    cursor: pointer;
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .auth {
+    &-breadcrumb {
+      width: 90%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .auth {
+    &-breadcrumb {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .auth {
+    &-breadcrumb {
+      display: none;
+    }
+    &-form {
+      grid-column: 1/3;
+    }
+    &-cancel {
+      padding-bottom: 20px;
+    }
+    &-logo-container {
+      display: block;
+      img {
+        width: 252px;
+        height: 58px;
+      }
+    }
+    &-content {
+      margin-top: 40px;
+      padding-bottom: 20px;
+    }
+  }
+  .content {
+    &-title {
+      margin-top: 0px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .auth {
+    &-container {
+      display: block;
+      width: 100%;
+      padding: 20px;
+    }
+    &-cancel {
+      padding-top: 0px;
+      padding-right: 0;
+    }
+    &-form {
+      display: block;
+    }
+    &-logo-container {
+      img {
+        width: 149px;
+        height: 44px;
+      }
+    }
+    &-back {
+      display: block;
+    }
+    &-content {
+      width: auto;
+    }
+  }
+  .content {
+    &-form {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 599.98px) {
+  .auth {
+    &-cancel {
+      text-align: start;
+      .iconlace-close {
+        &.me-2 {
+          display: inline-block;
+        }
+        &.ms-2 {
+          display: none;
+        }
+      }
+    }
+  }
+}

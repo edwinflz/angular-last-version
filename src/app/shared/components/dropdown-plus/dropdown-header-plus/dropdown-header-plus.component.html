@@ -1,0 +1,10 @@
+<span
+  class="select-title"
+  [ngClass]="{
+    picked: !!picked,
+    'color-white': hasBrackground,
+    custom: !hasBrackground
+  }"
+>
+  {{ picked.name || label }}
+</span>

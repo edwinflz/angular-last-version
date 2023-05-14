@@ -1,0 +1,188 @@
+<form [formGroup]="form" (ngSubmit)="sendFormData()" novalidate autocomplete="off">
+  <ng-container *ngIf="isFormAuth">
+    <ng-container *ngTemplateOutlet="formAuth; context: { formGroup: form, showValitation: false }"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isFormRestorePassword">
+    <ng-container *ngTemplateOutlet="formRestorePassword; context: { formGroup: form, showPasswordValidation: false }"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isFormForgotPassword">
+    <ng-container *ngTemplateOutlet="formForgotPassword; context: { formGroup: form }"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isFormUserMigration">
+    <ng-container *ngTemplateOutlet="formUserMigration; context: { formGroup: form }"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isFormNewAccount">
+    <ng-container *ngTemplateOutlet="formNewAccount; context: { formGroup: form }"></ng-container>
+  </ng-container>
+
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [appApplyClass]="buttonClassName"
+    [disabled]="loadingButton$ | async">
+    <ng-container *ngIf="(isLoading$ | async) as isLoading; else textButton">
+      <app-loading-bounce [isLoading]="isLoading" [color]="'#FFF'"></app-loading-bounce>
+    </ng-container>
+    <ng-template #textButton>{{ titleButton }}</ng-template>
+  </button>
+</form>
+
+<!-- Form Sign In -->
+<ng-template #formAuth let-formGroup="formGroup" let-showValitation="showValitation">
+  <ng-container *ngTemplateOutlet="inputEmail; context: { formGroup: formGroup, showValitation: showValitation }"></ng-container>
+  <ng-container *ngTemplateOutlet="formCheckPassword;
+    context: {
+      formGroup: formGroup,
+      showValitation: true,
+      formControlName: 'password',
+      placeholder: 'Contraseña'
+    }">
+  </ng-container>
+</ng-template>
+
+<!-- Form Forgot password -->
+<ng-template #formForgotPassword let-formGroup="formGroup">
+  <ng-container *ngTemplateOutlet="inputEmail; context: { formGroup: formGroup, showValitation: false }"></ng-container>
+</ng-template>
+
+<!-- Form User Migration -->
+<ng-template #formUserMigration let-formGroup="formGroup">
+  <ng-container *ngTemplateOutlet="inputEmail; context: { formGroup: formGroup, showValitation: false }"></ng-container>
+</ng-template>
+
+<!-- Form New Account -->
+<ng-template #formNewAccount let-formGroup="formGroup">
+  <div class="form-group mb-3 avatar-container">
+    <!-- <app-avatar></app-avatar> -->
+  </div>
+  <ng-container *ngTemplateOutlet="inputEmail; context: { formGroup: formGroup, showValitation: true }"></ng-container>
+  <ng-container *ngTemplateOutlet="formRestorePassword; context: { formGroup: formGroup, showPasswordValidation: true }"></ng-container>
+  <div class="form-group mb-3" [formGroup]="formGroup">
+    <input formControlName="userName" type="text" class="form-control" id="userName"
+      placeholder="Nombre"/>
+      <div class="invalid-feedback" *ngIf="isInValid('userName')">
+        <span *ngIf="hasErrorControl('required', 'userName')">Este campo es obligatorio.</span>
+      </div>
+  </div>
+  <div class="form-group mb-3" [formGroup]="formGroup">
+    <app-dropdown-plus formControlName="gender" [label]="'Género'" [options]="arrayGender"></app-dropdown-plus>
+    <div class="invalid-feedback" *ngIf="isInValid('gender')">
+      <span *ngIf="hasErrorControl('required', 'gender')">Este campo es obligatorio.</span>
+    </div>
+  </div>
+  <div class="form-group mb-3" [formGroup]="formGroup">
+    <div class="dropdowns-birthday">
+      <app-dropdown-plus formControlName="day" [label]="'Dia'" [options]="monthDays | mapperDropdownPlus: ['name', 'value']"></app-dropdown-plus>
+      <app-dropdown-plus formControlName="month" [label]="'Mes'" [options]="monthList"></app-dropdown-plus>
+      <app-dropdown-plus formControlName="year" [label]="'Año'" [options]="yearList"></app-dropdown-plus>
+    </div>
+    <div class="invalid-feedback" *ngIf="isInValid('day') || isInValid('month') || isInValid('year')">
+      <span *ngIf="hasErrorControl('required', 'day') || hasErrorControl('required', 'month') || hasErrorControl('required', 'year')">
+        Este campo es obligatorio.
+      </span>
+      <span *ngIf="hasErrorControl('invalidDate', 'day')">
+        Fecha de nacimiento invalida.
+      </span>
+    </div>
+  </div>
+  <div class="form-group mb-3" [formGroup]="formGroup">
+    <app-dropdown-plus
+     formControlName="country"
+     [label]="'País'"
+     [options]="countries$ | async | mapperDropdownPlus: ['name', 'name']"
+     [showSearch]="true">
+    </app-dropdown-plus>
+    <div class="invalid-feedback" *ngIf="isInValid('country')">
+      <span *ngIf="hasErrorControl('required', 'country')">Este campo es obligatorio.</span>
+    </div>
+  </div>
+  <div class="form-group mb-3" [formGroup]="formGroup">
+    <div class="term-condicions">
+      <app-checkbox-plus
+        formControlName="termConditions"
+        [label]="'Acepto los términos y condiciones.'">
+      </app-checkbox-plus>
+      <span class="ref-clickable" (click)="openPolicyPrivacy.emit(true)">(Ver)</span>
+    </div>
+    <div class="invalid-feedback mx-auto text-center" *ngIf="isInValid('termConditions')">
+     <span> Debes aceptar los Términos y Condiciones para  crear tu cuenta.</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Form Restore/New Password -->
+<ng-template #formRestorePassword let-formGroup="formGroup" let-showPasswordValidation="showPasswordValidation">
+  <ng-container *ngTemplateOutlet="formCheckPassword;
+    context: {
+      formGroup: formGroup,
+      showValitation: showPasswordValidation,
+      formControlName: 'password',
+      placeholder: 'Contraseña (al menos 8 caracteres)'
+    }">
+  </ng-container>
+  <ng-container *ngTemplateOutlet="formCheckPassword;
+    context: {
+      formGroup: formGroup,
+      showValitation: true,
+      formControlName: 'repeatPassword',
+      placeholder: 'Confirmar contraseña'
+    }">
+  </ng-container>
+</ng-template>
+
+
+<!-- Input Email Template -->
+<ng-template #inputEmail let-formGroup="formGroup" let-showValitation="showValitation">
+  <div class="form-group mb-3" [formGroup]="formGroup">
+    <input formControlName="email" type="email" class="form-control" id="email"
+      placeholder="Dirección de correo electrónico"/>
+      <div class="invalid-feedback" *ngIf="isInValid('email') && showValitation">
+        <span *ngIf="hasErrorControl('required', 'email')">Este campo es obligatorio.</span>
+        <span *ngIf="hasErrorControl('pattern', 'email')">El correo es inválido.</span>
+      </div>
+  </div>
+  <ng-content></ng-content>
+</ng-template>
+
+<!-- Input Password Template -->
+<ng-template #formCheckPassword
+  let-formGroup="formGroup"
+  let-showValitation="showValitation"
+  let-formControlName="formControlName"
+  let-placeholder="placeholder">
+  <div class="form-group mb-3">
+    <div class="input-group" [formGroup]="formGroup">
+      <input
+        [formControlName]="formControlName"
+        [type]="fieldPassword"
+        class="form-control border-end-0"
+        [placeholder]="placeholder">
+      <ng-container *ngTemplateOutlet="inputGroupPassword"></ng-container>
+    </div>
+    <div class="invalid-feedback" *ngIf="isInValid(formControlName) && showValitation">
+      <span *ngIf="hasErrorControl('mustMatch', formControlName)">
+        Las contraseñas no coinciden.
+      </span>
+      <span *ngIf="hasErrorControl('required', formControlName); else errorEnumTemplate">
+        Este campo es obligatorio.
+      </span>
+      <ng-template #errorEnumTemplate>
+        {{errorEnum | errorFormLogin }}
+      </ng-template>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Icon eye template for password inputs -->
+<ng-template #inputGroupPassword>
+  <span class="input-group-text border-start-0" (click)="toggleTypeInput()">
+    <i
+      class="iconlace"
+      [ngClass]="{ 'iconlace-open-eyes': !fieldTextType, 'iconlace-close-eyes': fieldTextType}">
+    </i>
+  </span>
+</ng-template>

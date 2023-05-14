@@ -1,0 +1,13 @@
+<table class="dropdown-table">
+  <tbody>
+    <tr *ngFor="let row of rows">
+      <td
+        *ngFor="let item of row"
+        class="dropdown-custom-item"
+        (click)="changeValue(item); $event.stopPropagation();">
+        <span>{{ item.value }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

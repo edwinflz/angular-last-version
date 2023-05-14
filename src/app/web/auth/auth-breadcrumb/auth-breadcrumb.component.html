@@ -1,0 +1,24 @@
+<div class="breadcrumb-container">
+  <div
+    class="level-step"
+    *ngFor="let item of breadCrumb; let last = last"
+    [ngClass] = "{
+      'blocked': item.stepBlocked,
+      'clicked': item.canClick
+    }"
+    (click)="onChangeStep(item.canClick, item.type)">
+    <div class="level-status" [class.cheked]="item.statusCheked">
+      <ng-container *ngIf="item.statusCheked; else notCheked">
+        <i class="iconlace iconlace-circle-status circle-border"></i>
+        <i class="iconlace iconlace-check check"></i>
+      </ng-container>
+      <ng-template #notCheked>
+        <i class="iconlace iconlace-circle circle-border"></i>
+      </ng-template>
+    </div>
+    <div class="level-text">{{item.name}}</div>
+    <div class="level-separator" *ngIf="!last">
+      <i class="iconlace iconlace-chevron-next"></i>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ export const environment = {
   name: 'qa',
   production: true,
   webApi: 'https://qa-api.enlace.plus/api',
+  soaApiBaseUrl: 'https://soa-qa.enlace.plus/api/',
   appInsights: {
     instrumentationKey: '4fd7a431-4061-4da0-a1fd-adc914aa5bb3'
   },

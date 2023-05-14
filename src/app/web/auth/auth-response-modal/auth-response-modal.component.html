@@ -1,0 +1,174 @@
+<div class="modal-header">
+  <div (click)="dismiss()">&times;</div>
+</div>
+<div class="modal-body">
+  <ng-container *ngIf="isEmailNotExist">
+    <ng-container *ngTemplateOutlet="emailNotExist"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="isUserNeedsMigrateFromAnyStep">
+    <ng-container *ngTemplateOutlet="userNeedsMigrateFromAnyStep"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="isUserNeedsMigrate">
+    <ng-container *ngTemplateOutlet="userNeedsMigrate"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="isUserAlreadyMigrated">
+    <ng-container *ngTemplateOutlet="userAlreadyMigrated"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="hasEmailBeenSent">
+    <ng-container *ngTemplateOutlet="sendEmailForgotPassword"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="isTokenExpired">
+    <ng-container *ngTemplateOutlet="tokenExpired"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="isSuccessChangePasword">
+    <ng-container *ngTemplateOutlet="successChangePasword"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="hasUserMigratedSuccess">
+    <ng-container *ngTemplateOutlet="userMigratedSuccess"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #emailNotExist>
+  <div class="info-icon">
+    <i class="iconlace iconlace-alert alert"></i>
+  </div>
+  <div class="info-title">¡Error!</div>
+  <div class="info-content">
+    <p>No existe una cuenta asociada a este correo, <br> verifícalo o crea una nueva cuenta.</p>
+  </div>
+  <div class="content-buttons">
+    <div class="btn-link-signup" (click)="closeWithOption(newAccount)">Crear cuenta nueva aquí.</div>
+    <ng-container *ngTemplateOutlet="contentHelperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #userNeedsMigrateFromAnyStep>
+  <div class="info-icon">
+    <i class="iconlace iconlace-circle circle"></i>
+    <i class="iconlace iconlace-check check"></i>
+  </div>
+  <div class="info-title">
+    ¡Bienvenido de vuelta!
+  </div>
+  <div class="info-content pb-2">
+    <p>
+      Hemos realizado unos cambios y necesitamos verificar unos datos de cuenta.
+    </p>
+    <p>
+      Enviaremos un link a tu correo electrónico para que restaures tu contraseña y puedas ingresar a Enlace+.
+    </p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close(fromMainButton)">Enviar</button>
+    <ng-container *ngTemplateOutlet="contentHelperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #userNeedsMigrate>
+  <div class="info-icon">
+    <i class="iconlace iconlace-circle circle"></i>
+    <i class="iconlace iconlace-check check"></i>
+  </div>
+  <div class="info-title">
+    Parece que sí existe una cuenta asociada al correo {{ email }}.
+  </div>
+  <div class="info-content pb-2">
+    <p>
+      Hemos enviado un link a tu correo electrónico para que restaures tu contraseña y puedas ingresar a Enlace+.
+    </p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close()">Aceptar</button>
+    <ng-container *ngTemplateOutlet="contentHelperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #userAlreadyMigrated>
+  <div class="info-icon">
+    <i class="iconlace iconlace-alert alert"></i>
+  </div>
+  <div class="info-title">¡Error!</div>
+  <div class="info-content">
+    <p>Esta cuenta ya ha sido migrada.</p>
+  </div>
+  <div class="content-buttons">
+    <div class="btn-link-signup" (click)="closeWithOption(signIn)">Iniciar sesión aquí.</div>
+    <ng-container *ngTemplateOutlet="contentHelperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #sendEmailForgotPassword>
+  <div class="info-icon">
+    <i class="iconlace iconlace-circle circle"></i>
+    <i class="iconlace iconlace-check check"></i>
+  </div>
+  <div class="info-title">¡Listo!</div>
+  <div class="info-content pb-2">
+    <p>
+      Hemos enviado un correo electrónico para que puedas cambiar tu contraseña.
+    </p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close()">Aceptar</button>
+    <ng-container *ngTemplateOutlet="contentHelperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #tokenExpired>
+  <div class="info-icon">
+    <i class="iconlace iconlace-alert alert"></i>
+  </div>
+  <div class="info-title">¡Error!</div>
+  <div class="info-content pb-2">
+    <p>Parece que este enlace ya expiró. Solicita uno nuevo ingresando tu correo electrónico en la siguiente
+    pantalla.</p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close()">Aceptar</button>
+    <ng-container *ngTemplateOutlet="contentHelperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #successChangePasword>
+  <div class="info-icon">
+    <i class="iconlace iconlace-circle circle"></i>
+    <i class="iconlace iconlace-check check"></i>
+  </div>
+  <div class="info-title">¡Listo!</div>
+  <div class="info-content pb-2">
+    <p>
+      Tu contraseña se ha cambiado exitosamente.
+    </p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close()">Aceptar</button>
+  </div>
+</ng-template>
+
+<ng-template #userMigratedSuccess>
+  <div class="info-icon">
+    <i class="iconlace iconlace-circle circle"></i>
+    <i class="iconlace iconlace-check check"></i>
+  </div>
+  <div class="info-title">¡Listo!</div>
+  <div class="info-content pb-2">
+    <p>
+      Tu cuenta se ha restaurado exitosamente.
+    </p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close()">Aceptar</button>
+  </div>
+</ng-template>
+
+<ng-template #contentHelperLinks>
+  <div class="content-helper-links">
+    <ng-container *ngIf="!isMobile; else mobileFaq">
+      <a class="btn-link-support" target="_blank" [routerLink]="faqRoute">Ayuda</a>
+    </ng-container>
+    <ng-template #mobileFaq>
+      <a class="btn-link-support" (click)="openModalFaq()">Ayuda</a>
+    </ng-template>
+    <a class="btn-link-support" [href]="emailSupport">Soporte</a>
+  </div>
+</ng-template>
