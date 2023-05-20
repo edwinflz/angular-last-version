@@ -14,6 +14,6 @@ export class DropdownHeaderPlusComponent<T extends DropdownPlus> {
 
   @Input() label!: string;
   @Input() hasBrackground!: boolean;
-  @Input() picked!: T;
+  @Input() picked!: T | null;
 
 }

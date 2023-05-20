@@ -11,7 +11,7 @@
           [ngTemplateOutletContext]="{ $implicit: picked }">
         </ng-container>
       </div>
-      <i class="iconlace iconlace-arrow-down-bold"></i>
+      <i class="iconlace iconlace-chevron-down"></i>
     </div>
     <div class="select-body" *ngIf="showOptions" [appCheckElementIsVisible]="'select-body-top'">
       <div class="select-search" *ngIf="showSearch" (click)="$event.stopPropagation();">
@@ -28,7 +28,7 @@
           <div
             class="select-item"
             *ngFor="let option of options | filterDropdownPlus: searchText; index as i"
-            [ngClass]="{'active': option?.value === picked.value}"
+            [ngClass]="{'active': option?.value === picked?.value}"
             (click)="selectOption(option); $event.stopPropagation();">
             <ng-container
               [ngTemplateOutlet]="defaultOption"

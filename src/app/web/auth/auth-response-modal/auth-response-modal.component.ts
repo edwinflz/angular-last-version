@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Observable, map } from 'rxjs';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutes, BaseResult, EmailRoutes, ModalClassName, StepAuth } from '@core/models/enums';
 import { MODAL_CONFIG } from '@constants/modal-config.constants';
+import { AppRoutes, BaseResult, BreakpointDevice, EmailRoutes, ModalClassName, StepAuth } from '@core/models/enums';
 import { FaqModalComponent } from '@components/faq/faq-modal/faq-modal.component';
+import { ResizeService } from '@utils/resize.service';
 
 @Component({
   selector: 'app-auth-response-modal',
@@ -18,15 +20,22 @@ export class AuthResponseModalComponent {
 
   @Input() result!: number;
   @Input() email!: string;
-  @Input() isMobile!: boolean;
 
   faqRoute: string = AppRoutes.FAQ;
   emailSupport: string = EmailRoutes.SUPPORT;
   newAccount: StepAuth = StepAuth.NEW_ACCOUNT;
   signIn: StepAuth = StepAuth.AUTH;
+  sendForgotPassword = StepAuth.FORGOT_PASSWORD;
   fromMainButton: boolean = true;
 
-  constructor(private activeModal: NgbActiveModal,private modalService: NgbModal) { }
+  constructor(
+    private activeModal: NgbActiveModal,
+    private modalService: NgbModal,
+    private resizeService: ResizeService,) { }
+
+  get isMobileBreakpoint$(): Observable<boolean> {
+    return this.resizeService.size$.pipe(map(value => value < BreakpointDevice.TABLET));
+  }
 
   get isEmailNotExist(): boolean {
     return this.result === BaseResult.USER_NOT_FOUND;
@@ -60,6 +69,10 @@ export class AuthResponseModalComponent {
     return this.result === BaseResult.USER_HAS_BEEN_MIGRATED;
   }
 
+  get userAlreadyExists(): boolean {
+    return this.result === BaseResult.USER_ALREADY_EXISTS;
+  }
+
   dismiss(): void {
     this.activeModal.dismiss();
   }
@@ -69,8 +82,6 @@ export class AuthResponseModalComponent {
   }
 
   closeWithOption(extra?: string): void {
-     if (this.isUserNeedsMigrateFromAnyStep)
-      this.activeModal.close(BaseResult.SEND_EMAIL_FOR_MIGRATION);
      if (extra)
       this.activeModal.close(extra);
   }

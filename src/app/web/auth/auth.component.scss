@@ -73,7 +73,7 @@
 .content {
   &-title {
     @include font(
-      $font-family: var(--lato-font),
+      $font-family: var(--panton-font),
       $size: var(--f-30),
       $line-height: var(--f-36),
       $weight: 900
@@ -98,7 +98,7 @@
     @include font($size: var(--f-12));
     width: 80%;
     &-forgot {
-      @include font($size: var(--f-16),$line-height: var(--f-18), $weight: 400);
+      @include font($size: var(--f-14),$line-height: var(--f-18), $weight: 400);
       margin: 25px auto;
     }
     &-migration {
@@ -137,6 +137,14 @@
       margin-right: 10px;
     }
   }
+}
+
+.only-mobile {
+  display: none;
+}
+
+.only-desktop {
+  display: inline-block;
 }
 
 @media only screen and (max-width: 1366px) {
@@ -217,6 +225,12 @@
       padding-left: 0;
       padding-right: 0;
     }
+  }
+  .only-mobile {
+    display: inline-block;
+  }
+  .only-desktop {
+    display: none;
   }
 }
 

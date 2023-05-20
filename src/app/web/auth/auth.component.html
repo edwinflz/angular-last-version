@@ -13,10 +13,10 @@
             </span>
           </div>
         </ng-container>
-        <div *ngIf="canShowCancelLogin" class="auth-cancel" (click)="cancelLogin()">
-          <i class="iconlace iconlace-cross me-2"></i>
+        <div *ngIf="(canShowCancelLogin$ | async)" class="auth-cancel" (click)="cancelLogin()">
+          <i class="iconlace iconlace-cross me-2 only-mobile"></i>
           <span>AHORA NO</span>
-          <i class="iconlace iconlace-cross ms-2"></i>
+          <i class="iconlace iconlace-cross ms-2 only-desktop"></i>
         </div>
       </div>
       <div class="auth-logo-container">
@@ -30,11 +30,11 @@
           <ng-container *ngSwitchCase="authSteps.Authentication">
             <ng-container *ngTemplateOutlet="authentication"></ng-container>
           </ng-container>
+          <ng-container *ngSwitchCase="authSteps.CheckPassword">
+            <ng-container *ngTemplateOutlet="enterYourPassword"></ng-container>
+          </ng-container>
           <ng-container *ngSwitchCase="authSteps.ForgotPassword">
             <ng-container *ngTemplateOutlet="forgotPassword"></ng-container>
-          </ng-container>
-          <ng-container *ngSwitchCase="authSteps.UserMigration">
-            <ng-container *ngTemplateOutlet="userMigration"></ng-container>
           </ng-container>
           <ng-container *ngSwitchCase="authSteps.ChangePassword">
             <ng-container *ngTemplateOutlet="changePassword"></ng-container>
@@ -51,32 +51,53 @@
   </div>
 </div>
 
-<!-- authenticate.emit($event) -->
 <ng-template #authentication>
-  <div class="content-title">Iniciar sesión</div>
+  <div class="content-title">¡Hola!</div>
+  <div class="content-subtitle mt-3">
+    Hemos realizado algunos cambios para iniciar sesión
+    y necesitamos verificar los datos de tu cuenta.
+  </div>
   <div class="content-form">
     <app-auth-form
       [stepAuth]="stepAuth"
-      [titleButton]="'INGRESAR'"
+      [titleButton]="'CONTINUAR'"
       [errorForm]="errorForm"
-      (sendData)="changeStatusBreadCrumb($event);">
+      (sendData)="handleForm($event);">
     </app-auth-form>
   </div>
   <div class="content-call-to-action column mt-0 mb-3">
-    <div class="action-text mt-4" (click)="changeStepAuth(authSteps.ForgotPassword)">
-      ¿Olvidaste tu contraseña?
+    <div class="content-text-small mt-4">
+      Si utilizabas una red social para iniciar sesión, utiliza el
+      mismo correo electrónico de dicha red social para ingresar.
     </div>
-    <div class="register-now mt-4">
+    <div class="register-now mt-3">
       <div class="sign-up">¿No tienes cuenta?</div>
       <div class="action-text" (click)="changeStepAuth(authSteps.NewAccount)">Regístrate ahora</div>
-    </div>
-    <div class="migrate-now mt-4">
-      <div class="sign-up">Si utilizabas una red social para iniciar sesión,</div>
-      <div class="action-text" (click)="changeStepAuth(authSteps.UserMigration)">haz click</div>
     </div>
   </div>
   <div class="content-helper-links">
     <ng-container *ngTemplateOutlet="helperLinks"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #enterYourPassword>
+  <div class="content-title">Contraseña</div>
+  <div class="content-subtitle mt-3">
+    Ingresa tu contraseña para el correo electrónico: <br />
+    <strong>{{email}}</strong>
+  </div>
+  <div class="content-form">
+    <app-auth-form
+    [stepAuth]="stepAuth"
+    [titleButton]="'INGRESAR'"
+    [errorForm]="errorForm"
+    (sendData)="handleForm($event);">
+  </app-auth-form>
+  </div>
+  <div class="content-call-to-action column mt-0 mb-3">
+    <div class="register-now mt-3">
+      <div class="action-text" (click)="changeStepAuth(authSteps.ForgotPassword)">¿Olvidaste tu contraseña?</div>
+    </div>
   </div>
 </ng-template>
 
@@ -91,39 +112,11 @@
       [stepAuth]="stepAuth"
       [titleButton]="'ENVIAR'"
       [errorForm]="errorForm"
-      (sendData)="changeStatusBreadCrumb($event);">
+      (sendData)="handleForm($event);">
       <div class="content-text-small-forgot mb-3">
         Te enviaremos un correo electrónico para que restaures tu contraseña.
       </div>
     </app-auth-form>
-  </div>
-  <div class="content-helper-links mt-2">
-    <ng-container *ngTemplateOutlet="helperLinks"></ng-container>
-  </div>
-</ng-template>
-
-<!-- checkEmailMigration.emit($event); -->
-<ng-template #userMigration>
-  <div class="content-title">Restaura tu cuenta</div>
-  <div class="content-subtitle my-4">
-    Hemos realizado unos cambios para iniciar sesión y necesitamos que verifiques tu cuenta.
-  </div>
-  <div class="content-subtitle mb-2">
-    Ingresa el correo electrónico asociado a tu cuenta:
-  </div>
-  <div class="content-form">
-    <app-auth-form
-      [stepAuth]="stepAuth"
-      [titleButton]="'ENVIAR'"
-      [errorForm]="errorForm"
-      (sendData)="changeStatusBreadCrumb($event);">
-      <div class="content-text-small-migration mb-3">
-        Te enviaremos un correo electrónico para que verifiques tu cuenta.
-      </div>
-    </app-auth-form>
-  </div>
-  <div class="content-helper-links mt-2">
-    <ng-container *ngTemplateOutlet="helperLinks"></ng-container>
   </div>
 </ng-template>
 
@@ -137,7 +130,8 @@
       [stepAuth]="stepAuth"
       [titleButton]="'CREAR'"
       [errorForm]="errorForm"
-      (sendData)="createNewUser($event);"
+      [isWebview]="isWebview"
+      (sendData)="handleForm($event);"
       (openPolicyPrivacy)="openPolicyPrivacyModal()">
     </app-auth-form>
   </div>
@@ -155,7 +149,7 @@
       [stepAuth]="stepAuth"
       [titleButton]="'CONTINUAR'"
       [errorForm]="errorForm"
-      (sendData)="restorePasswordAndAuthenticate($event)">
+      (sendData)="handleForm($event)">
     </app-auth-form>
   </div>
   <div class="content-helper-links mt-2">
@@ -178,7 +172,7 @@
       [stepAuth]="stepAuth"
       [titleButton]="'CONTINUAR'"
       [errorForm]="errorForm"
-      (sendData)="restorePasswordAndAuthenticate($event)">
+      (sendData)="handleForm($event)">
     </app-auth-form>
   </div>
   <div class="content-helper-links mt-2">
@@ -187,12 +181,7 @@
 </ng-template>
 
 <ng-template #helperLinks>
-  <ng-container *ngIf="!isMobile; else mobileFaq">
-    <a class="content-link-support" target="_blank" [routerLink]="faqRoute">Ayuda</a>
-  </ng-container>
-  <ng-template #mobileFaq>
-    <a class="content-link-support" (click)="openModalFaq()">Ayuda</a>
-  </ng-template>
+  <a *ngIf="!isWebview" class="content-link-support" target="_blank" [routerLink]="faqRoute">Ayuda</a>
+  <a *ngIf="isWebview" class="content-link-support" (click)="openModalFaq()">Ayuda</a>
   <a class="content-link-support" [href]="emailSupportRoute">Soporte</a>
 </ng-template>
-

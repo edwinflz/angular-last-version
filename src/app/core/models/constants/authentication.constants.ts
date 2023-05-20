@@ -11,6 +11,21 @@ const AUTH = [
   },
 ];
 
+export const ENTER_PASSWORD = [
+  {
+    ...AUTH[0],
+    statusCheked: true,
+    canClick: true,
+  },
+  {
+    stepBlocked: false,
+    statusCheked: false,
+    canClick: false,
+    name: TextBreadCrumb.PASSWORD,
+    type: StepAuth.CHECK_PASSWORD,
+  },
+];
+
 const RESET_PASSWORD = [
   {
     ...AUTH[0],
@@ -52,6 +67,11 @@ const NEW_ACCOUNT = [
 const FORGOT_PASSWORD = [
   {
     ...AUTH[0],
+    statusCheked: true,
+    canClick: true,
+  },
+  {
+    ...ENTER_PASSWORD[1],
     statusCheked: true,
     canClick: true,
   },
@@ -104,6 +124,7 @@ const USER_MIGRATION = [
 
 export const BREADCRUMB_AUTH_DATA: any = {
   [StepAuth.AUTH]: AUTH,
+  [StepAuth.CHECK_PASSWORD]: ENTER_PASSWORD,
   [StepAuth.NEW_ACCOUNT]: NEW_ACCOUNT,
   [StepAuth.RESET_PASSWORD]: RESET_PASSWORD,
   [StepAuth.FORGOT_PASSWORD]: FORGOT_PASSWORD,
@@ -113,6 +134,7 @@ export const BREADCRUMB_AUTH_DATA: any = {
 
 export const STEPS_AUTH: StepAuthEntity = {
   [StepAuth.AUTH]: StepAuth.AUTH,
+  [StepAuth.CHECK_PASSWORD]: StepAuth.CHECK_PASSWORD,
   [StepAuth.NEW_ACCOUNT]: StepAuth.NEW_ACCOUNT,
   [StepAuth.RESET_PASSWORD]: StepAuth.RESET_PASSWORD,
   [StepAuth.FORGOT_PASSWORD]: StepAuth.FORGOT_PASSWORD,

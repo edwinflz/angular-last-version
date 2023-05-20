@@ -4,3 +4,4 @@ export * from './constants.enum';
 export * from './routes.enum';
 export * from './localstorage.enum';
 export * from './feature-flag.enum';
+export * from './url-parameters.enum';

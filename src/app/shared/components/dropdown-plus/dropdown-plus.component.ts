@@ -43,7 +43,7 @@ export class DropdownPlusComponent<T extends DropdownPlus> implements ControlVal
 
   showOptions: boolean = false;
   searchText: string = '';
-  picked!: T;
+  picked!: T | null;
   touched = false;
   onChange = (picked: T) => {};
   onTouched = () => {};
@@ -67,7 +67,7 @@ export class DropdownPlusComponent<T extends DropdownPlus> implements ControlVal
   closeOptions(): void {
     this.showOptions = false;
     this.searchText = '';
-    this.onChange(this.picked);
+    this.onChange(this.picked as T);
     this.markAsTouched();
   }
 

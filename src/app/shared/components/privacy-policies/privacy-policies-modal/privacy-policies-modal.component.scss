@@ -1,0 +1,11 @@
+@import "abstracts/mixins";
+@import "partials/buttons";
+
+.modal-body {
+  padding: 10px;
+  margin-right: 5px;
+  @include scroll(
+    $size: 8px,
+    $borderRadiusThumb: var(--border-radius-6)
+  );
+}

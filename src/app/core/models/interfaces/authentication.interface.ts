@@ -21,6 +21,7 @@ export interface StepAuthEntity {
   NewAccount: string;
   ResetPassword: string;
   ChangePassword: string;
+  CheckPassword: string;
 }
 
 export type UserLoggedIn = Readonly<{
@@ -102,16 +103,19 @@ export interface SendFormData {
   data: FormDataAuth;
 }
 
-interface FormDataAuth {
-  email?: string;
-  password?: string;
-  repeatPassword?: string;
-  userName?: string;
-  gender?: DropdownPlus;
-  // birthdate?: Day;
-  country?: DropdownPlus;
-  termConditions?: boolean;
-  imageAvatar?: any;
+export interface FormDataAuth {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  userName: string;
+  gender: DropdownPlus;
+  birthdate: Date;
+  country: DropdownPlus;
+  termConditions: boolean;
+  imageAvatar: Blob | null;
+  year: DropdownPlus;
+  month: DropdownPlus;
+  day: DropdownPlus;
 }
 
 

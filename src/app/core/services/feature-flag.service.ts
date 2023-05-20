@@ -15,7 +15,6 @@ export class FeatureFlagService {
 
   constructor(private http: HttpClient) { }
 
-
   getAllFeaturesStatus(): Observable<FeatureFlagStatus[]> {
     return this.http.get<FeatureFlagStatus[]>(this._api + '/GetAllFeaturesStatus/')
     .pipe(tap(flags => this._featureStatus = flags));

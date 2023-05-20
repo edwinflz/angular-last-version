@@ -8,6 +8,7 @@ import { LoadingComponent } from '@components/loading/loading.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { INTERCEPTOR_PROVIDERS } from '@core/interceptors';
+import { AppBaseBrowserModule } from '@config/app-base-browser.module';
 // Swiper
 register();
 
@@ -20,6 +21,7 @@ register();
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AppBaseBrowserModule,
     NgxWebstorageModule.forRoot(),
     LoadingComponent
   ],

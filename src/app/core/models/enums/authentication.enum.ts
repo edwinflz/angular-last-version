@@ -36,18 +36,30 @@ export const enum BaseResult {
   SEND_EMAIL_FOR_MIGRATION = 25,
 }
 
-export const enum TextBreadCrumb {
+/*
+new version:
   EMAIL = 'Iniciar sesión',
   PASSWORD = 'Crear contraseña',
+  CHANGE_PASSWORD = 'Nueva Contraseña',
+  RESTORE_ACCOUNT = 'Restaurar cuenta',
+*/
+export const enum TextBreadCrumb {
+  EMAIL = 'Correo Electrónico',
+  PASSWORD = 'Contraseña',
   VERIFICATION = 'Verificación',
   NEW_ACCOUNT = 'Nueva Cuenta',
   FORGOT_PASSWORD = 'Recuperar contraseña',
-  CHANGE_PASSWORD = 'Nueva Contraseña',
+  CHANGE_PASSWORD = 'Crear Contraseña',
   RESTORE_ACCOUNT = 'Restaurar cuenta',
 }
 
 export enum TypeFieldsForm {
   EMAIL = 'email',
   PASSWORD = 'password',
-  IMAGE_AVATAR = 'imageAvatar'
+  IMAGE_AVATAR = 'imageAvatar',
+  DAY = 'day',
+  MONTH = 'month',
+  YEAR = 'year',
+  GENDER = 'gender',
+  COUNTRY = 'country'
 }

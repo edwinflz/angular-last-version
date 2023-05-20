@@ -10,7 +10,7 @@ import { ResponseSoaApi } from '@interfaces/soa-api.interface';
 })
 export class CountryService {
 
-  private API = `${ENV.webApi}v2/country`;
+  private API = `${ENV.webApi}/v2/country`;
   private soaApi = `${ENV.soaApiBaseUrl}`;
 
   constructor(private http: HttpClient) { }

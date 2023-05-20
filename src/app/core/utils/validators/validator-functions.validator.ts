@@ -21,7 +21,9 @@ export const validDate: ValidatorFn = (control: AbstractControl):
       const { value: valueYear } = year.value;
       const isValidDate = isExists(valueYear, valueMonth, valueDay);
       if (!isValidDate) {
-        day?.setErrors({ invalidDate: true });
+        day.setErrors({ invalidDate: true });
+      } else {
+        day.setErrors(null);
       }
     }
     return null;

@@ -1,17 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { ARRAY_GENDER, MONTH_DAYS, MONTH_NAMES, YEARS } from '@constants/user-data.constants';
-import { EMAIL_REGEX } from '@constants/validator-patterns.constants';
 import { ErrorFormAuth, SendFormData, Country } from '@interfaces/index';
-import { ButtonClassName, DropdownClassName, FeatureFlag, LoadingClassName, StepAuth } from '@enums/index';
+import { ButtonClassName, DropdownClassName, FeatureFlag, LoadingClassName, StepAuth, TypeFieldsForm } from '@enums/index';
 import { ErrorFormLoginPipe, MapperDropdownPlusPipe } from '@pipes/index';
 import { ApplyClassDirective } from '@directives/apply-class.directive';
-import { HttpLoadingService, FormManipulateService, matchPassword, validDate } from '@utils/index';
+import { hasErrorControl, hasErrorForm, isInValid } from '@shared/helpers';
+import { HttpLoadingService } from '@utils/index';
 import { FeatureFlagService } from '@services/feature-flag.service';
 import { CountryService } from '@services/country.service';
-import { LoadingBounceComponent, CheckboxPlusComponent, DropdownPlusComponent } from '@components/index';
+import { LoadingBounceComponent, CheckboxPlusComponent, DropdownPlusComponent, AvatarComponent } from '@components/index';
+import { formAuthentication, formChangePassword, formNewAccount, formOnlyEmail, formOnlyPassword,
+  formChangePasswordValidators, formNewAccountValidators } from './built-form-auth.helper';
 const TEXT = 'text';
 const PASSWORD = 'password';
 @Component({
@@ -22,6 +24,7 @@ const PASSWORD = 'password';
     ReactiveFormsModule,
     ErrorFormLoginPipe,
     LoadingBounceComponent, DropdownPlusComponent, CheckboxPlusComponent,
+    AvatarComponent,
     ApplyClassDirective,
     MapperDropdownPlusPipe
   ],
@@ -32,6 +35,7 @@ const PASSWORD = 'password';
 export class AuthFormComponent {
 
   @Input() stepAuth!: StepAuth;
+  @Input() isWebview!: boolean;
   @Input() titleButton!: string;
   @Input() set errorForm(value: ErrorFormAuth | null) {
     if (value && value.input) {
@@ -43,7 +47,7 @@ export class AuthFormComponent {
   };
   @Output() sendData: EventEmitter<SendFormData> = new EventEmitter();
   @Output() openPolicyPrivacy: EventEmitter<boolean> = new EventEmitter();
-  isLoading$ = this.httpLoadingService.isLoading$;
+  isLoading$ = inject(HttpLoadingService).isLoading$;
   countries$: Observable<Country[]> = this.countryService.getCountriesLite();
   form!: UntypedFormGroup;
   errorEnum!: number;
@@ -57,9 +61,7 @@ export class AuthFormComponent {
   yearList = YEARS;
 
   constructor(
-    private httpLoadingService: HttpLoadingService,
     private countryService: CountryService,
-    private formManipulate: FormManipulateService,
     private formBuilder: UntypedFormBuilder,
     private featureFlagService: FeatureFlagService
   ) { }
@@ -70,6 +72,10 @@ export class AuthFormComponent {
 
   get isFormAuth(): boolean {
     return this.stepAuth === StepAuth.AUTH;
+  }
+
+  get isFormCheckPassword(): boolean {
+    return this.stepAuth === StepAuth.CHECK_PASSWORD;
   }
 
   get isFormRestorePassword(): boolean {
@@ -114,67 +120,44 @@ export class AuthFormComponent {
       this.sendData.emit({ step: this.stepAuth, data: this.form.value });
   }
 
+  setImage(image: Blob) {
+    this.getFormControl(TypeFieldsForm.IMAGE_AVATAR)?.setValue(image);
+  }
+
   toggleTypeInput(): void {
     this.fieldTextType = !this.fieldTextType;
   }
 
   formAuthentication(): UntypedFormGroup {
-    return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-      password: ['', [Validators.required]],
-    });
+    return this.formBuilder.group(formAuthentication);
   }
 
   formOnlyEmail(): UntypedFormGroup {
-    return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-    });
+    return this.formBuilder.group(formOnlyEmail);
+  }
+
+  formOnlyPassword(): UntypedFormGroup {
+    return this.formBuilder.group(formOnlyPassword);
   }
 
   formChangePassword(): UntypedFormGroup {
-    return this.formBuilder.group(
-      {
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        repeatPassword: ['', [Validators.required]],
-      },
-      {
-        validators: matchPassword,
-      }
-    );
+    return this.formBuilder.group(formChangePassword, formChangePasswordValidators);
   }
 
   formNewAccount(): UntypedFormGroup {
-    return this.formBuilder.group(
-      {
-        email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        repeatPassword: ['', [Validators.required]],
-        userName: ['', [Validators.required]],
-        gender: [null, [Validators.required]],
-        day: [null, [Validators.required]],
-        month: [null, [Validators.required]],
-        year: [null, [Validators.required]],
-        birthdate: ['',],
-        country: [null, [Validators.required]],
-        termConditions: [false, [Validators.requiredTrue]],
-        imageAvatar: [null],
-      },
-      {
-        validators: [matchPassword, validDate],
-      }
-    );
+    return this.formBuilder.group(formNewAccount, formNewAccountValidators);
   }
 
   isInValid(control: string): boolean {
-    return this.formManipulate.isInValid({ form: this.form, control });
+    return isInValid({ form: this.form, control });
   }
 
   hasErrorControl(type: string, control: string): boolean {
-    return this.formManipulate.hasErrorControl({ type, control, form: this.form });
+    return hasErrorControl({ type, control, form: this.form });
   }
 
   hasErrorForm(type: string, control: string): boolean {
-    return this.formManipulate.hasErrorForm({ type, control, form: this.form });
+    return hasErrorForm({ type, control, form: this.form });
   }
 
   private getFormControl(control: string): AbstractControl | null {
@@ -183,13 +166,28 @@ export class AuthFormComponent {
 
   private buildForm(): void {
     if (this.isFormAuth)
-      this.form = this.formAuthentication();
+      this.form = this.formOnlyEmail();
+    if (this.isFormCheckPassword)
+      this.form = this.formOnlyPassword();
     if (this.isFormForgotPassword || this.isFormUserMigration)
       this.form = this.formOnlyEmail();
     if (this.isFormNewAccount)
       this.form = this.formNewAccount();
     if (this.isFormRestorePassword)
       this.form = this.formChangePassword();
+    this.setValidationNewAccount();
+  }
+
+  private setValidationNewAccount(): void {
+    if (this.isAuthRegisterRequireBirthdateEnable) {
+      this.getFormControl(TypeFieldsForm.DAY)?.setValidators([Validators.required]);
+      this.getFormControl(TypeFieldsForm.MONTH)?.setValidators([Validators.required]);
+      this.getFormControl(TypeFieldsForm.YEAR)?.setValidators([Validators.required]);
+    }
+    if (this.isAuthRegisterRequireGenderEnable)
+      this.getFormControl(TypeFieldsForm.GENDER)?.setValidators([Validators.required]);
+    if (this.isAuthRegisterRequireCountryEnable)
+      this.getFormControl(TypeFieldsForm.COUNTRY)?.setValidators([Validators.required]);
   }
 
 }
