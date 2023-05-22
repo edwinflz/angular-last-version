@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <div (click)="dismiss()">&times;</div>
+</div>
+<div class="modal-body">
+  <div class="info-icon">
+    <ng-container *ngIf="!response.isError">
+      <i class="iconlace iconlace-circle circle"></i>
+      <i class="iconlace iconlace-check check"></i>
+    </ng-container>
+    <ng-container *ngIf="response.isError">
+      <i class="iconlace iconlace-alert-radius alert"></i>
+    </ng-container>
+  </div>
+  <div class="info-title">{{ response.title }}</div>
+  <div class="info-content">
+    <p>{{ response.content }}</p>
+  </div>
+  <div class="content-buttons">
+    <button type="button" class="btn btn-primary" (click)="close()">{{ response.firstButtonTxt }}</button>
+  </div>
+</div>

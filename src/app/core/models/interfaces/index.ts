@@ -4,3 +4,4 @@ export * from './user.interface';
 export * from './feature-flag.interface';
 export * from './url-parameters.interface';
 export * from './utils.interface';
+export * from './response-modal.interface';

@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
-import { base64ToBlob } from '@shared/helpers';
+import { base64ToBlob, getModalResponseRef } from '@shared/helpers';
+import { ModalRefFunction } from '@models/interfaces';
 
 @Component({
   selector: 'app-avatar',
@@ -9,9 +18,10 @@ import { base64ToBlob } from '@shared/helpers';
   imports: [CommonModule, ImageCropperModule],
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarComponent {
+
   @Input() index: number = 0;
   @Output() setImage = new EventEmitter<Blob>();
   @ViewChild('imageInput') imageInputElement!: ElementRef;
@@ -20,6 +30,11 @@ export class AvatarComponent {
   image = '';
   tempImage: string | null | undefined = '';
   imageChangedEvent!: Event;
+  modalRef: ModalRefFunction = getModalResponseRef();
+
+  constructor() {
+    // this.modalRef = getModalResponseRef();
+  }
 
   readFile(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -49,12 +64,18 @@ export class AvatarComponent {
       this.showCropper = true;
       this.imageChangedEvent = event;
     } else {
+      this.imageInputElement.nativeElement.value = '';
       this.openModal();
     }
   }
 
   openModal(): void {
-    console.log('openModal');
+    this.modalRef({
+      title: 'Tamaño de imagen no válido',
+      content: 'El tamaño mínimo para la imagen es de 300px X 300px.',
+      firstButtonTxt: 'ACEPTAR',
+      isError: true,
+    });
   }
 
   validateImage(imgHeight: number, imgWidth: number): boolean {
@@ -68,7 +89,7 @@ export class AvatarComponent {
   cancelCrop(): void {
     this.showCropper = false;
     this.tempImage = '';
-    this.imageInputElement.nativeElement.value = ''
+    this.imageInputElement.nativeElement.value = '';
   }
 
   saveImage(): void {
@@ -76,6 +97,5 @@ export class AvatarComponent {
     this.image = this.tempImage as string;
     const imgBlob: Blob = base64ToBlob(this.image);
     this.setImage.emit(imgBlob);
-    // this.image = this.tempImage;
   }
 }

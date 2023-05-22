@@ -6,6 +6,8 @@ export const enum AuthUrlParameters {
 }
 
 export const enum SubscriptionUrlParameters {
+  USER_ID = 'userId',
+  FROM_WEBVIEW = 'fromMobile',
   JWT = 'jwtToken',
   REFRESH_TOKEN = 'refreshToken',
   EXPIRATION_TOKEN = 'expirationToken'

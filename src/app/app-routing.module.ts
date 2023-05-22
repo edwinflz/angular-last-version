@@ -14,6 +14,11 @@ const routes: Routes = [
       import('@web/auth/auth.component').then((m) => m.AuthComponent),
   },
   {
+    path: AppRoutes.SUBSCRIPTION,
+    loadComponent: () =>
+      import('@web/subscription/subscription.component').then((m) => m.SubscriptionComponent)
+  },
+  {
     path: AppRoutes.TERMS_OF_USE,
     loadComponent: () =>
       import('@components/terms-of-use/terms-of-use.component').then((m) => m.TermsOfUseComponent)

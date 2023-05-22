@@ -11,6 +11,12 @@
           "changeDetection": "OnPush",
           "standalone": true
         },
+        "@schematics/angular:directive": {
+          "standalone": true
+        },
+        "@schematics/angular:pipe": {
+          "standalone": true
+        },
         "@schematics/angular:application": {
           "strict": true
         }

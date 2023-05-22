@@ -1,0 +1,119 @@
+<div class="subscription-container">
+  <h1 class="subscription-title">
+    Perfil de Usuario
+  </h1>
+  <div class="subscription-tabs">
+    <a class="subscription-tab inactive">
+      Crea tu cuenta
+    </a>
+    <a class="subscription-tab">
+      Elige tu plan
+    </a>
+  </div>
+  <div class="subscription-separator">
+    <div class="separator"></div>
+    <div class="separator active"></div>
+  </div>
+  <div class="subscription-info">
+    <p class="subscription-paragraph">
+      Enlace+ es un proyecto que busca utilizar la tecnología para compartir el mensaje acertado, con la persona correcta, en el momento oportuno;
+      poniendo al alcance de cada usuario miles de contenidos edificantes y Cristo céntricos en diferentes formatos.
+    </p>
+    <p class="subscription-paragraph">
+      Actualmente puedes inscribirte en los siguientes planes:
+    </p>
+    <p>
+  </div>
+  <div class="subscription-card-container">
+    <ng-container *ngTemplateOutlet="cardBasic; context: { isMobile: (isMobile$ | async)}"></ng-container>
+    <ng-container *ngTemplateOutlet="cardSubscription; context: { isMobile: (isMobile$ | async)}"></ng-container>
+  </div>
+</div>
+
+
+<ng-template #cardBasic let-isMobile="isMobile">
+  <div
+    class="subscription-card-wrapper"
+    [appScrollIntoViewElement]="isMobile"
+    [typeBlock]="typeBlock"
+    (click)="toggleCardBasic(isMobile)">
+    <div class="subscription-card basic" [class.active]="isMobile && openCardBasic">
+      <div class="subscription-card-info">
+        <h3 class="subscription-card-title">
+          Plan
+        </h3>
+        <h2 class="subscription-card-title second">
+          Básico
+        </h2>
+        <h5 class="subscription-card-subtitle basic" [class.not-active]="isMobile && !openCardBasic">
+          ¡Gratis!
+        </h5>
+        <p class="subscription-card-paragraph">
+          Gracias a los <strong>Misioneros Digitales</strong> que han donado voluntariamente, puedes acceder gratis a:
+        </p>
+        <ul class="subscription-card-list">
+          <li class="subscription-card-list-item">
+            Todo el contenido de Enlace+ que incluye: videos, podcasts, artículos y más.
+          </li>
+          <li class="subscription-card-list-item">
+            Secciones de: Biblia, En Vivo, Oración.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="subscription-card-button basic">
+      <button type="button" class="btn-primary" *ngIf="isMobile">{{ openCardBasic ? 'REGÍSTRATE' : 'MÁS INFO'}}</button>
+      <button type="button" class="btn-primary" *ngIf="!isMobile" (click)="enableSubscriptionBasic()">REGÍSTRATE</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #cardSubscription let-isMobile="isMobile">
+  <div
+    class="subscription-card-wrapper"
+    [appScrollIntoViewElement]="isMobile"
+    [typeBlock]="typeBlock"
+    (click)="toggleCardSubscription(isMobile)" >
+    <div class="subscription-card" [class.active]="isMobile && openCardSubscription">
+      <div class="subscription-card-info">
+        <h3 class="subscription-card-title">
+          Plan
+        </h3>
+        <h2 class="subscription-card-title second">
+          Misionero Digital
+        </h2>
+        <h5 class="subscription-card-subtitle" [class.not-active]="isMobile && !openCardSubscription">
+          $4.99 al mes*
+        </h5>
+        <p class="subscription-card-paragraph">
+          Con tu suscripción te conviertes en un <strong> Misionero Digital.</strong>
+        </p>
+        <p class="subscription-card-paragraph">
+          Tu aporte mensual permite que miles de personas puedan acceder gratuitamente al contenido que transmite el mensaje de salvación. Disfruta de:
+        </p>
+        <ul class="subscription-card-list">
+          <li class="subscription-card-list-item">
+            Ver vídeos sin anuncios al iniciar la reproducción de cualquier vídeo.
+          </li>
+          <li class="subscription-card-list-item">
+            Todo el contenido en diferentes formatos y secciones de la plataforma.
+          </li>
+          <li class="subscription-card-list-item">
+            Contenido gratuito exclusivo del plan Misionero Digital.
+          </li>
+          <li class="subscription-card-list-item">
+            Publicar un anuncio de manera gratuita en nuestra Comunidad de Productos y Servicios.
+          </li>
+          <li class="subscription-card-list-item">
+            Adelantos e información exclusiva del avance del proyecto.
+          </li>
+        </ul>
+        <p class="subscription-card-paragraph-legal">*Puedes cancelar tu suscripción en cualquier momento.</p>
+      </div>
+    </div>
+    <div class="subscription-card-button">
+      <button type="button" class="btn-primary" *ngIf="isMobile">{{ openCardSubscription ? 'SUSCRÍBETE' : 'MÁS INFO'}}</button>
+      <button type="button" class="btn-primary" *ngIf="!isMobile" (click)="openSubscriptionFounder()">SUSCRÍBETE</button>
+    </div>
+  </div>
+</ng-template>
