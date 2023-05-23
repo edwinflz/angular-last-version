@@ -128,26 +128,6 @@ export class AuthFormComponent {
     this.fieldTextType = !this.fieldTextType;
   }
 
-  formAuthentication(): UntypedFormGroup {
-    return this.formBuilder.group(formAuthentication);
-  }
-
-  formOnlyEmail(): UntypedFormGroup {
-    return this.formBuilder.group(formOnlyEmail);
-  }
-
-  formOnlyPassword(): UntypedFormGroup {
-    return this.formBuilder.group(formOnlyPassword);
-  }
-
-  formChangePassword(): UntypedFormGroup {
-    return this.formBuilder.group(formChangePassword, formChangePasswordValidators);
-  }
-
-  formNewAccount(): UntypedFormGroup {
-    return this.formBuilder.group(formNewAccount, formNewAccountValidators);
-  }
-
   isInValid(control: string): boolean {
     return isInValid({ form: this.form, control });
   }
@@ -166,15 +146,15 @@ export class AuthFormComponent {
 
   private buildForm(): void {
     if (this.isFormAuth)
-      this.form = this.formOnlyEmail();
+      this.form = this.formBuilder.group(formOnlyEmail);
     if (this.isFormCheckPassword)
-      this.form = this.formOnlyPassword();
+      this.form = this.formBuilder.group(formOnlyPassword);
     if (this.isFormForgotPassword || this.isFormUserMigration)
-      this.form = this.formOnlyEmail();
+      this.form = this.formBuilder.group(formOnlyEmail);
     if (this.isFormNewAccount)
-      this.form = this.formNewAccount();
+      this.form = this.formBuilder.group(formNewAccount, formNewAccountValidators);
     if (this.isFormRestorePassword)
-      this.form = this.formChangePassword();
+      this.form = this.formBuilder.group(formChangePassword, formChangePasswordValidators);
     this.setValidationNewAccount();
   }
 

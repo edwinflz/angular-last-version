@@ -62,6 +62,27 @@
   <ng-container *ngTemplateOutlet="inputEmail; context: { formGroup: formGroup, showValitation: false }"></ng-container>
 </ng-template>
 
+<!-- Form Restore/New Password -->
+<ng-template #formRestorePassword let-formGroup="formGroup" let-showPasswordValidation="showPasswordValidation">
+  <ng-container *ngTemplateOutlet="formCheckPassword;
+    context: {
+      formGroup: formGroup,
+      showValitation: showPasswordValidation,
+      formControlName: 'password',
+      placeholder: 'Contraseña (al menos 8 caracteres)'
+    }">
+  </ng-container>
+  <ng-container *ngTemplateOutlet="formCheckPassword;
+    context: {
+      formGroup: formGroup,
+      showValitation: true,
+      formControlName: 'repeatPassword',
+      placeholder: 'Confirmar contraseña'
+    }">
+  </ng-container>
+</ng-template>
+
+
 <!-- Form New Account -->
 <ng-template #formNewAccount let-formGroup="formGroup">
   <div class="form-group mb-3 avatar-container" *ngIf="!isWebview">
@@ -121,27 +142,6 @@
     </div>
   </div>
 </ng-template>
-
-<!-- Form Restore/New Password -->
-<ng-template #formRestorePassword let-formGroup="formGroup" let-showPasswordValidation="showPasswordValidation">
-  <ng-container *ngTemplateOutlet="formCheckPassword;
-    context: {
-      formGroup: formGroup,
-      showValitation: showPasswordValidation,
-      formControlName: 'password',
-      placeholder: 'Contraseña (al menos 8 caracteres)'
-    }">
-  </ng-container>
-  <ng-container *ngTemplateOutlet="formCheckPassword;
-    context: {
-      formGroup: formGroup,
-      showValitation: true,
-      formControlName: 'repeatPassword',
-      placeholder: 'Confirmar contraseña'
-    }">
-  </ng-container>
-</ng-template>
-
 
 <!-- Input Email Template -->
 <ng-template #inputEmail let-formGroup="formGroup" let-showValitation="showValitation" let-showLabel="showLabel">

@@ -4,7 +4,7 @@ import { FeatureFlagService } from '@services/feature-flag.service';
 
 export function onAppInit(featureFlagService: FeatureFlagService): () => Promise<Object> {
   return (): Promise<object> => {
-    featureFlagService.getAllFeaturesStatus().subscribe();
+    featureFlagService.featureStatus$.subscribe((result) => featureFlagService.fillFeaturesFlags(result));
     return Promise.resolve({});
   };
 }

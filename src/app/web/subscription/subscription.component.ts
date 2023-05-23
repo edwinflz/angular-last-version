@@ -2,15 +2,16 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@
 import { CommonModule } from '@angular/common';
 import { Observable, map } from 'rxjs';
 import { DomManipulateService, ResizeService } from '@core/utils';
-import { BodyClassName, BreakpointDevice } from '@models/enums';
+import { BodyClassName, BreakpointDevice, FeatureFlag } from '@models/enums';
 import { UrlSubscriptionParameters } from '@models/interfaces';
 import { readUrlSubscriptionParameters } from '@shared/helpers';
 import { ScrollIntoViewElementDirective } from '@directives/scroll-into-view-element.directive';
+import { FeatureIsOnDirective } from '@directives/feature-is-on.directive';
 
 @Component({
   selector: 'app-subscription',
   standalone: true,
-  imports: [CommonModule, ScrollIntoViewElementDirective],
+  imports: [CommonModule, ScrollIntoViewElementDirective, FeatureIsOnDirective],
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,6 +23,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   openCardSubscription = false;
   openCardBasic = false;
   typeBlock = 'start';
+  subscriptionOnRegister = FeatureFlag.SUBSCRIPTION_ON_REGISTER;
   private _urlparameters: UrlSubscriptionParameters = readUrlSubscriptionParameters();
 
   ngOnInit(): void {
