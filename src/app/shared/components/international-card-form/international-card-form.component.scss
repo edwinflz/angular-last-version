@@ -1,0 +1,12 @@
+@import "abstracts/mixins";
+@import 'partials/inputs';
+
+label {
+  font-weight: 700;
+}
+
+.my-subscription {
+  .form-control {
+    @include input-main($height: 40px, $colorBorder: var(--yellow));
+  }
+}

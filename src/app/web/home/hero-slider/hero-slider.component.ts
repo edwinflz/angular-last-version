@@ -34,6 +34,10 @@ export class HeroSliderComponent implements AfterViewInit {
     slidesPerView: 1,
     navigation: false,
     centeredSlides: true,
+     autoplay: {
+      delay: 2000,
+      disableOnInteraction: false
+    },
   };
 
   private _swiper!: Swiper;

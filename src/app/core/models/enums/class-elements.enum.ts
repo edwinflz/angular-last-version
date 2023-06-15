@@ -6,7 +6,8 @@ export const enum BodyClassName {
 
 export const enum ModalClassName {
   FAQ = 'dark-modal faq-modal',
-  LOGIN = 'dark-modal login-modal'
+  LOGIN = 'dark-modal login-modal',
+  SUBSCRIPTION_PLAN = 'dark-modal subscription-plan-modal'
 }
 
 export const enum DropdownClassName {
@@ -29,4 +30,10 @@ export const enum ContentClassName {
 
 export const enum ButtonClassName {
   LOGIN_BUTTON = 'login-button',
+}
+
+export enum TypeClassSubscriptionForm {
+  MY_SUBSCRIPTION = 'my-subscription',
+  SUBSCRIPTION_MODAL = 'subscription-modal',
+  DONATION = 'donation',
 }

@@ -35,7 +35,7 @@ export class CountryService {
     return this.http.get<District[]>(`${this.API}/${departmentCode}/districts?orderBy=nameenlgish`);
   }
 
-  // Necesito tipar estos endpoints
+  // TODO: Necesito tipar estos endpoints
   getCountryStateCommunity(countryId: string): Observable<ResponseSoaApi<any>> {
     const url = `${this.soaApi}Country/getStatesByCountry/${countryId}`;
     return this.http.get<ResponseSoaApi<any>>(url);

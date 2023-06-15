@@ -28,3 +28,34 @@ export const validDate: ValidatorFn = (control: AbstractControl):
     }
     return null;
 };
+
+export const expiredCardDateValidator: ValidatorFn = (control: AbstractControl):
+  ValidationErrors | null => {
+    const value = control.value;
+
+    return null;
+};
+
+// export function expiredCardDateValidator(): ValidatorFn {
+//   return (control: AbstractControl): ValidationErrors | null => {
+//     const value = control.value;
+//     if (!value) return null;
+//     const dates = value.split('/');
+//     if (dates.length !== 2) return null;
+
+//     const expiryMonth = dates[0].replace(/\s/g, '');
+//     const expiryYear = dates[1].replace(/\s/g, '');
+//     if (
+//       expiryYear &&
+//       expiryMonth.length === 2 &&
+//       (+expiryMonth >= 1 || +expiryMonth <= 12) &&
+//       (expiryYear.length === 2 || expiryYear.length === 4) &&
+//       (+expiryYear >= 1 || (+expiryYear <= 99 || +expiryYear <= 9999)) &&
+//       Stripe.card.validateExpiry(expiryMonth, expiryYear)
+//     ) {
+//       return null;
+//     } else {
+//       return { expiredCard: true };
+//     }
+//   };
+// }

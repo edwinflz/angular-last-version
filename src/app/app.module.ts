@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { register } from 'swiper/element/bundle';
-import { LoadingComponent } from '@components/loading/loading.component';
+import { LoadingComponent } from '@app/shared/components/loadings/loading/loading.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { INTERCEPTOR_PROVIDERS } from '@core/interceptors';

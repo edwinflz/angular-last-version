@@ -1,0 +1,21 @@
+<form class="{{style}}" [formGroup]="form" (ngSubmit)="submitCard()" novalidate autocomplete="off">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-xs-12">
+      <ng-container *ngTemplateOutlet="cardName; context: { formGroup: form }"></ng-container>
+    </div>
+    <div class="col-lg-3 col-md-3 col-xs-12"></div>
+    <div class="col-lg-3 col-md-3 col-xs-12"></div>
+  </div>
+</form>
+
+
+<ng-template #cardName  let-formGroup="formGroup">
+  <div class="form-group" [formGroup]="formGroup">
+    <label for="form-card-holder">Nombre:</label>
+    <input type="text" class="form-control"  id="form-card-holder"
+      placeholder="Nombre" formControlName="cardName"/>
+      <div class="invalid-feedback" *ngIf="isInValid('cardName')">
+        <span>El nombre es requerido.</span>
+      </div>
+  </div>
+</ng-template>

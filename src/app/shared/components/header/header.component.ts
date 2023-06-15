@@ -19,7 +19,7 @@ import { UserService } from '@services/user.service';
 import { ResizeService } from '@utils/resize.service';
 import { ClickOutsideDirective } from '@directives/click-outside.directive';
 import { SearchGeneralComponent } from '@components/search-general/search-general.component';
-import { LoginModalComponent } from '@components/login-modal/login-modal.component';
+import { LoginModalComponent } from '@app/shared/components/modals/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-header',

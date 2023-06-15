@@ -5,12 +5,12 @@
       <img class="hero-img" [src]="hero?.backgroundImage?.url || imageDefault" [alt]="hero.title" [title]="hero.title" priority>
     </swiper-slide>
   </swiper-container>
-  <button class="swiper-button-container button-right" (click)="next()">
+  <!-- <button class="swiper-button-container button-right" (click)="next()">
     <i class="iconlace iconlace-chevron-next"></i>
   </button>
   <button class="swiper-button-container button-left" (click)="previous()">
     <i class="iconlace iconlace-chevron-previous"></i>
-  </button>
+  </button> -->
 </section>
 
 <ng-template #heroContent let-hero="hero">

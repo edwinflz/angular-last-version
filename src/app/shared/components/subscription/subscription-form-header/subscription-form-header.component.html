@@ -1,0 +1,38 @@
+<div class="header-subscription" [formGroup]="form">
+  <div class="header-subscription-title {{style}}">Elige tu aporte</div>
+  <div class="header-subscription-paragraph my-15">
+    Agradecemos mucho que hayas elegido el Plan Misionero Digital.
+  </div>
+  <div class="header-subscription-paragraph">
+    Si deseas, puedes apoyarnos con una contribución mensual superior a ${{fromAmount}}.
+  </div>
+  <div class="header-subscription-radios">
+    <label class="method" for="fixed-amount">
+      <input type="radio" name="gateway"  formControlName="gateway" id="fixed-amount" value="false" (change)="onRadioChange($event)">
+      <span class="checkmark {{style}}"></span>
+      <span class="custom-radio">USD ${{fromAmount}} al mes</span>
+    </label>
+  </div>
+  <div class="header-subscription-radios group">
+    <label class="method change-amount" for="change-amount">
+      <input type="radio" name="gateway" formControlName="gateway" id="change-amount" value="true"  (change)="onRadioChange($event)">
+      <span class="checkmark {{style}}"></span>
+      <span class="custom-radio">Aporte mayor</span>
+    </label>
+    <div class="subscription-amount-input">
+      <div class="input-group container-amount">
+        <span class="input-group-text {{style}}" [class.is-invalid]="isInValid('amount')">
+          USD $
+        </span>
+        <input class="form-control {{style}} text-right" formControlName="amount" type="number" (change)="submitAmount()"
+           placeholder="5.00 o más" id="amount" min="0" step=".01" required />
+        <span class="input-group-text">al mes</span>
+      </div>
+      <div *ngIf="isInValid('amount')" class="help-block">
+        <span *ngIf="hasErrorControl('required', 'amount')">El aporte es requerido.</span>
+        <span *ngIf="hasErrorControl('min', 'amount')">El aporte tiene que ser mayor que ${{fromAmount}}.</span>
+      </div>
+    </div>
+  </div>
+</div>
+

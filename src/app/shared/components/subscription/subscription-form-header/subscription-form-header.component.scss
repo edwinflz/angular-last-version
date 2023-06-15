@@ -1,0 +1,83 @@
+@import "abstracts/mixins";
+@import 'partials/inputs';
+
+.header-subscription {
+  @include flex($direction: column);
+  color: var(--white);
+  &-title {
+    @include font($size: var(--f-24), $line-height: 29px, $weight: 900,  $text-transform: uppercase);
+    padding-bottom: 5px;
+    &.my-subscription {
+      border-bottom: 2px solid var(--yellow);
+    }
+    &.subscription-modal {
+      border-bottom: 2px solid var(--purple);
+    }
+  }
+  &-paragraph {
+    @include font($size: var(--f-16), $line-height: 19px, $weight: 400);
+    margin-bottom: 5px;
+    &.my-15 {
+      margin: 15px 0;
+    }
+  }
+  &-radios {
+    margin-top: 20px;
+    &.group {
+      @include flex();
+      gap: 20px;
+    }
+  }
+}
+
+.input-group-text {
+  &.my-subscription {
+    @include input-main($height: 40px,  $colorBorder: var(--yellow));
+  }
+  &.subscription-modal {
+    @include input-main($height: 40px,  $colorBorder: var(--purple));
+  }
+}
+
+.form-control {
+  @include input-main();
+  border-top-right-radius: var(--border-radius-5) !important;
+  border-bottom-right-radius: var(--border-radius-5) !important;
+  &.my-subscription {
+    @include input-main($height: 40px,  $colorBorder: var(--yellow), $inputGroupInvisible: true);
+  }
+  &.subscription-modal {
+    @include input-main($height: 40px,  $colorBorder: var(--purple), $inputGroupInvisible: true);
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .header-subscription {
+    &-paragraph {
+      font-size: var(--f-16);
+    }
+    &-radios {
+      .custom-radio {
+        font-size: var(--f-14);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header-subscription {
+    &-radios {
+      &.group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+  .change-amount {
+    width: 38%;
+  }
+}

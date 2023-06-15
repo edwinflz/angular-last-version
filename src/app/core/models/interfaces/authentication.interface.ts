@@ -29,7 +29,7 @@ export type UserLoggedIn = Readonly<{
   refreshToken: string;
   expirationToken?: string;
   result: ResultRequest;
-  userInfo: any; // validar type
+  userInfo: any; // TODO: validar type
 }>;
 
 export type FromOutSide = Readonly<{
@@ -39,7 +39,7 @@ export type FromOutSide = Readonly<{
 
 export type ResponseApi = Readonly<{
   step: string;
-  response: any; // validar type
+  response: any; // TODO: validar type
 }>;
 
 export type  responseResultEnum = Readonly<{

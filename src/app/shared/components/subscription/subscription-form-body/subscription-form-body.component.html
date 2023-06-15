@@ -1,0 +1,15 @@
+
+<div class="body-subscription">
+  <div class="body-subscription-title {{style}}">Método de Pago</div>
+  <div class="body-subscription-radios mt-3">
+    <label class="method" for="gateway-international">
+      <input type="radio" name="gateway-card" id="gateway-international" value="false">
+      <span class="checkmark {{style}}"></span>
+      <span class="custom-radio">Tarjeta de débito / crédito internacional</span>
+    </label>
+    <img [src]="imgInternationalCard" alt="Tarjeta">
+  </div>
+  <div class="form">
+    <app-international-card-form [style]="style"></app-international-card-form>
+  </div>
+</div>

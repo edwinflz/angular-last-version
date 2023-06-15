@@ -6,6 +6,7 @@
   $colorError: var(--orange),
   $borderRadius: var(--border-radius-5),
   $font-size: var(--f-12),
+  $inputGroupInvisible: false,
 ) {
   height: $height;
   background-color: $background;
@@ -17,18 +18,22 @@
     box-shadow: none;
   }
   &.ng-touched.ng-invalid {
-    @include error-input($colorError);
+    @include error-input($colorError, $inputGroupInvisible);
   }
   &.ng-dirty.ng-invalid {
-    @include error-input($colorError);
+    @include error-input($colorError, $inputGroupInvisible);
   }
   &.is-invalid {
     background-image: none;
-    @include error-input($colorError);
+    @include error-input($colorError, $inputGroupInvisible);
   }
   & + .input-group-text {
-    background-color: $background;
-    @include input-group-color($colorBorder);
+    @if $inputGroupInvisible {
+      @include input-group-transparent($color);
+    } @else {
+      background-color: $background;
+      @include input-group-color($colorBorder);
+    }
   }
 }
 
@@ -37,9 +42,19 @@
   color: $color;
 }
 
-@mixin error-input($color) {
+@mixin input-group-transparent($color) {
+  background-color: var(--transparent);
+  border: 1px solid var(--transparent);
+  color: $color;
+}
+
+@mixin error-input($color, $inputGroupInvisible) {
   border: 1px solid $color;
   & + .input-group-text {
-    @include input-group-color($color);
+    @if $inputGroupInvisible {
+      @include input-group-transparent(var(--white));
+    } @else {
+      @include input-group-color($color);
+    }
   }
 }

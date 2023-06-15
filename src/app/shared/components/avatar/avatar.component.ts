@@ -32,9 +32,7 @@ export class AvatarComponent {
   imageChangedEvent!: Event;
   modalRef: ModalRefFunction = getModalResponseRef();
 
-  constructor() {
-    // this.modalRef = getModalResponseRef();
-  }
+  constructor() {}
 
   readFile(event: Event): void {
     const target = event.target as HTMLInputElement;
